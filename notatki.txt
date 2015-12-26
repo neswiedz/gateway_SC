@@ -1,0 +1,81 @@
+﻿NOTATKI:
+- Komenda dla centrali:"FEFE00D7E2FE0D" - zapytanie o stan czujek "zones violations"
+- Komenda dla centrali: "FEFE09D7EBFE0D" - zapytanie o armed partitions (suppressed)
+- Komenda dla centrali: "FEFE0AD7ECFE0D" - zapytanie o armed partitions (really)
+
+- Komenda dla magistrali CAN:
+Kuchnia sufit - moduł(3,11)kanał_1 (trzecie przekaźnik na parterze)
+Typ_Ramki	Flagi	Node Group	D0		D1		KANAŁ	STAN	D4		INSTR1			INSTR2		TIMER
+0x302 		0000 	03		11	0xFF	0xFF	1		0x00	0xFF	0x00(włączyć)	0x01(K1)	0xFF 
+
+
+WATPLIWOŚCI:
+  * ile czasu trzyma czujka w stanie wykrycia ruchu -> co ile trzeba skanowac stan czujek, aby nie stracic informacji
+  
+FUNKCJE:
+  * zapytanie do centrali alarmu o stan czujek
+  * odebranie informacji od centrali alarmu ze stanem czujek
+  * obliczenie CRC ramki centrali alarmu
+  
+  * wysylanie komend na magistrale CAN
+  * odbior komendy z magistrali CAN (możliwośc aktywacji/dezaktywacji)
+  
+  * interpretacja inforamcji i wysłanie właściwych komend do sieci CAN
+  
+  * odczyt konfiguracji
+	- tablica-komend (czujek, komend_ON, komendy_OFF, czas-wlaczenia)
+	- czestotliwosc skanowania(odpytywania) centrali alarmu
+	- czas autogaszenia kanałów 
+	
+ZMIENNE:
+- module_activity_flag			(flaga służąca do globalnego włączania/wyłączania wysyłania komend na CAN np. po otrzymaniu komendy z CANa można włączyc/wyłączyc glowna funkcjonalnośc aplikacji)
+- sensor_freq_reading		 	(czestotliwosc odpytywania centrali alarmu o stan czujek)
+- sensor_last_reading_time		(czas ostatniego odpytania centrali o czujki)
+- sensor_command_table 			(zawiera tablice czujek i ich komend, dla tej samej czujki może byc n roznych komend, opoznienie 0 oznacza ignorowanie komendy_OFF)
+ 	[czujka_nr, komenda_A_on, komenda_A_off, czas_opoznienia]  
+	....
+	[czujka_nr, komenda_B_on, komenda_B_off, czas_opoznienia]	
+- sensor_command_count			(liczba komend w tabeli) - wyliczana po pobraniu pliku "conf-command-sensors.txt"
+- sensor_activity_table 		(tablica odczytanych aktywnych czujek) [czujka_1, czujka_2, czujka_3,...]
+- sensor_activity_flag 			(flaga informująca że są aktywne czujki - info, że należy wysłac komendy na CAN) 
+- command_timeout_table			(tablica z czasami, kiedy maja zostac wyslane komendy przeciwne (wyłączające) 
+	[komenda_OFF, pozostaly_czas]
+	....
+	[komenda_OFF, pozostaly_czas]
+
+PLIKI-KONFIGURACYJNE:
+  * conf-command-sensors.txt 	(sensor_command_table)
+  * conf-command-bus.txt 		(komendy z magistrali CAN, na ktore ma reagowac program)
+  * conf-setup.txt 				(sensor_freq_reading, ustawienia RSow, module_activity_flag)
+
+ALGORYTM:
+- odczytac z plików konfiguracje:	
+	* sensor_command_table 	(z pliku: conf-command-sensors.txt)
+	* sensor_freq_reading 	(z pliku: conf-setup.txt)  
+	* module_activity_flag 	(z pliku: conf-setup.txt)  
+	* sensor_command_count 	(wyliczyc na podstawie sensor_command_table)
+- wyswietlic na ekran odczytana konfiguracje, (albo jakos (diodki?) zasygnalizowac przejscie do nastepnego etapu)
+- sensor_last_reading_time == pobierz czas_systemowy
+- petla nieskonczona
+	- odbierz ramke z magistraliCAN  (mozna dodac opoznienie zeby nie mielił cały czas jesli module_activity_flag==0, tylko na tyle male zeby nie pominal komend na CANie)
+		- READ_CAN (jeśli komenda dla mnie to wykonaj:)
+			- module_activity_flag =1 lub =0 (narazie przewidziana jedna komenda zmieniająca stan module_activity_flag)
+			- zapisac nowe ustawienie module_activity_flag do pliku konfiguracyjnego w conf-setup.txt 	
+	jesli module_activity_flag==1
+		- jeśli (sensor_last_reading_time + sensor_freq_reading <= czas_systemowy)
+			- sensor_last_reading_time ==  pobierz czas_systemowy
+			- SEND_ALARM(zapytanie o stan czujek)
+			- READ_ALARM(odbiór odpowiedzi ze stanem czujek)
+				- jesli (sprawdzenie CRC odpowiedzi od alarmu jest OK) 
+					- interpretacja aktywnych czujek i wrzucenie ich do zmiennej "tablica_odczytane_aktywne_czujki"
+					(wrzucamy tylko te czujki na ktore mamy reagowac czyli znajdujacych sie w tablica-komend) 
+					- ustawienie flagi (sa-aktywne-czujki) / lub / zliczenie ile jest aktywnych czujek )
+		- jeśli (flaga=1 lub licznik aktywnych czujek >0 lub tablica_odczytane_aktywne_czujki != NULL)
+			- dla każdego elementu z tablica_odczytane_aktywne_czujki wykonaj
+				- dla każdego wiersza z tablica-komend wykonaj
+					- jesli (porównane numery czujek z tablica_odczytane_aktywne_czujki i tablica-komend sa zgodne)
+						- SEND_CAN(komenda_ON odpowiadajaca czujce z tablica-komend) 
+						- jesli czas_opoznienia != 0
+							- dodaj do tablica-czasy-zgaszenia [komenda_OFF, czas_opoznienia+czas_systemowy]
+		- dla kazdego elementu z tablica-czasy-zgaszenia wykonaj
+			- jesli odczytany czas<=czas_systemowy to wyslij odpowiednia komende_OFF
