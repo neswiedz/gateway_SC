@@ -1,6 +1,10 @@
+TODO:
 - dodanie znakow czasu i daty
 - formatowanie zapisanych komunikatow
 
 - torzenie folderu /log jesli nie isnieje (przekierowanie pliku log.txt do niego)
 - poprawa struktury programu
 - uruchamianie cykliczne (zamykanie pliku codziennie, weryfikacja ile jest miejsca na dysku, ochrona przed przepelnieniem dysku)
+
+
+DONE:
