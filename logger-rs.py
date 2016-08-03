@@ -16,6 +16,14 @@ number_of_read_atempt = 50
 
 
 def open_file(path):
+    '''
+    Funkcja pobiera sciezke i zwraca ciag gdzie zapisac log (scziezka + nazwa pliku jako
+            data) oraz czas kiedy powinno sie zakonczyc zapisywanie
+    input: path - sciezka gdzie zapisywane beda logi
+    output: czas konca - wykorzystywany jako parametr kiedy ma sie zakonczyc zapis do pliku
+            Zakładając ze kazdego dnia powstaje nowy plik
+    output: log_file - nazwa pliku z logiem  zbudowana ze sciezki i daty rozpoczecia (today)
+    '''
     start_time = datetime.datetime.today()
     #end_time = datetime.datetime(start_time.year, start_time.month, start_time.day, \
     # 23, 59, 59, 999999 )
