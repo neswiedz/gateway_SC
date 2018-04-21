@@ -7,23 +7,22 @@ import datetime
 import serial
 import binascii
 
-#port_CAN = '/dev/ttyUSB0'
-port_CAN = 'COM11'
-port_CAN_baudrate = 115200
+#input_port_name = '/dev/ttyUSB0'
+input_port_name = 'COM5'
+input_port_baudrate = 115200
 #log_path = '/media/flash-log/'
-log_path = 'log'
+log_path = 'logggg'
 file_extension = ".txt"
 number_of_read_atempt = 50
-time_of_file_closing = dict(hour=22, minutes=15, seconds=00, miliseconds=999999)
+time_of_file_closing = dict(hour=22, minutes=16, seconds=00, miliseconds=999999)
 #time_of_file_closing = dict(hour=23, minutes=59, seconds=59, miliseconds=999999)
 
 
-def open_file(subfolder):
+def open_file_in(subfolder):
     start_time = datetime.datetime.today()
     log_name = start_time.strftime("%Y-%m-%d_%H-%M-%S") + file_extension
     path = os.path.join(os.getcwd(),subfolder)
     if not ((os.path.isdir(path))):
-        #print("folder nie istnieje")
         os.mkdir(path)
     log_file = open(os.path.join(os.getcwd(),path, log_name), 'a')
     return (log_file)
@@ -44,12 +43,12 @@ def init_serial(port, baudrate):
 
     return ser
 
-def main_loop(CAN_port, time_end, log_file):
+def main_loop(input_port, time_end, log_file):
     buffer_string=0
     while (datetime.datetime.today()<time_end):
-        n = CAN_port.inWaiting()
+        n = input_port.inWaiting()
         if n != 0:
-            buffer_string = CAN_port.read(n)
+            buffer_string = input_port.read(n)
             temp = str(binascii.hexlify(buffer_string))[2:-1]  #cut "b'" at the begining and "'" at the end
             # command "1100AF" is display as "b'1100AF'"
             pretty_text = ''
@@ -61,22 +60,23 @@ def main_loop(CAN_port, time_end, log_file):
                     pretty_text = pretty_text + c + " "
                 i = i + 1
             print(pretty_text)
-            log_file.write(time.asctime() + ": " + pretty_text + "\n")
+            #log_file.write(time.asctime() + ": " + pretty_text + "\n")
+            log_file.write(time.strftime("%Y.%m.%d %H:%M:%S") + " " + pretty_text.upper() + "\n")
     log_file.close()
-    CAN_port.close()
-    print("Port {}->CAN is closed.".format(CAN_port.name))
+    input_port.close()
+    print("Port {} is closed.".format(input_port.name))
 
 #MAIN APP
 print("Start")
-file = open_file(log_path)
+file = open_file_in(log_path)
 print("Log will be write into: {}".format(file.name))
 start_time = datetime.datetime.today()
 work_until = datetime.datetime(start_time.year, start_time.month, start_time.day, \
                              time_of_file_closing['hour'], time_of_file_closing['minutes'], \
                              time_of_file_closing['seconds'], time_of_file_closing['miliseconds'])
 print("Work will be terminated at: {}".format(work_until))
-ser_CAN = init_serial(port_CAN, port_CAN_baudrate)
-print("Port {}->CAN is opened sucessfully.".format(ser_CAN.name))
+ser_CAN = init_serial(input_port_name, input_port_baudrate)
+print("Port {} is opened sucessfully.".format(ser_CAN.name))
 main_loop(ser_CAN, work_until, file)
 print("Finished")
 
