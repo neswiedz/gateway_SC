@@ -1,23 +1,13 @@
-﻿1. aplikacja zapisujaca z RS do pliku przez n minut
-2. rozszyfrowanie ktory port jest ktorey CAN nadaje co jakis czas, SATEL cisza
-3. wyslanie zapytania do satela i odbior odpowiedzi do pliku
-4. odczyt komunikatu z CAN
-
-
-
-NOTATKI:
-- Komenda dla centrali:"FEFE00D7E2FE0D" - zapytanie o stan czujek "zones violations"
-- Komenda dla centrali: "FEFE09D7EBFE0D" - zapytanie o armed partitions (suppressed)
-- Komenda dla centrali: "FEFE0AD7ECFE0D" - zapytanie o armed partitions (really)
+﻿NOTATKI:
+- Komenda dla centrali SATEL:"FEFE00D7E2FE0D" - zapytanie o stan czujek "zones violations"
+- Komenda dla centrali SATEL: "FEFE09D7EBFE0D" - zapytanie o armed partitions (suppressed)
+- Komenda dla centrali SATEL: "FEFE0AD7ECFE0D" - zapytanie o armed partitions (really)
 
 - Komenda dla magistrali CAN:
 Kuchnia sufit - moduł(3,11)kanał_1 (trzecie przekaźnik na parterze)
 Typ_Ramki	Flagi	Node Group	D0		D1		KANAŁ	STAN	D4		INSTR1			INSTR2		TIMER
 0x302 		0000 	03		11	0xFF	0xFF	1		0x00	0xFF	0x00(włączyć)	0x01(K1)	0xFF 
 
-Do testow: 
-- czujka ruchu wejscie - swiatlo wejscie
-- czujka ruchu kuchnia / salon - swiatlo schody
 
 WATPLIWOŚCI:
   * ile czasu trzyma czujka w stanie wykrycia ruchu -> co ile trzeba skanowac stan czujek, aby nie stracic informacji
@@ -74,8 +64,8 @@ ALGORYTM:
 	jesli module_activity_flag==1
 		- jeśli (sensor_last_reading_time + sensor_freq_reading <= czas_systemowy)
 			- sensor_last_reading_time ==  pobierz czas_systemowy
-			- SEND_ALARM(zapytanie o stan czujek)
-			- READ_ALARM(odbiór odpowiedzi ze stanem czujek)
+			- SEND_SATEL(zapytanie o stan czujek)
+			- READ_SATEL(odbiór odpowiedzi ze stanem czujek)
 				- jesli (sprawdzenie CRC odpowiedzi od alarmu jest OK) 
 					- interpretacja aktywnych czujek i wrzucenie ich do zmiennej "tablica_odczytane_aktywne_czujki"
 					(wrzucamy tylko te czujki na ktore mamy reagowac czyli znajdujacych sie w tablica-komend) 
