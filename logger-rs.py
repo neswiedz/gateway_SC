@@ -14,7 +14,7 @@ input_port_baudrate = 115200
 log_path = 'logggg'
 file_extension = ".txt"
 number_of_read_atempt = 50
-time_of_file_closing = dict(hour=22, minutes=16, seconds=00, miliseconds=999999)
+time_of_file_closing = dict(hour=22, minutes=58, seconds=00, miliseconds=999999)
 #time_of_file_closing = dict(hour=23, minutes=59, seconds=59, miliseconds=999999)
 
 
@@ -62,6 +62,7 @@ def main_loop(input_port, time_end, log_file):
             print(pretty_text)
             #log_file.write(time.asctime() + ": " + pretty_text + "\n")
             log_file.write(time.strftime("%Y.%m.%d %H:%M:%S") + " " + pretty_text.upper() + "\n")
+        time.sleep(0.1)
     log_file.close()
     input_port.close()
     print("Port {} is closed.".format(input_port.name))
