@@ -24,8 +24,9 @@ def open_file_in(subfolder):
     path = os.path.join(os.getcwd(),subfolder)
     if not ((os.path.isdir(path))):
         os.mkdir(path)
-    log_file = open(os.path.join(os.getcwd(),path, log_name), 'a')
-    return (log_file)
+    file_path = os.path.join(os.getcwd(),path, log_name)
+    log_file = open(file_path, 'a')
+    return (log_file, file_path)
 
 def init_serial(port, baudrate):
     try:
@@ -43,9 +44,17 @@ def init_serial(port, baudrate):
 
     return ser
 
-def main_loop(input_port, time_end, log_file):
+def main_loop(input_port, time_end, log_file, file_path):
     buffer_string=0
+    zezwolenie_na_zapis_do_pliku = False
     while (datetime.datetime.today()<time_end):
+        if ((datetime.datetime.today().minute % 15)==0):
+            if(zezwolenie_na_zapis_do_pliku == True):
+                log_file.close()
+                log_file = open(file_path, 'a')
+                zezwolenie_na_zapis_do_pliku = False
+        if ((datetime.datetime.today().minute % 15)>=14):
+            zezwolenie_na_zapis_do_pliku = True
         n = input_port.inWaiting()
         if n != 0:
             buffer_string = input_port.read(n)
@@ -69,7 +78,7 @@ def main_loop(input_port, time_end, log_file):
 
 #MAIN APP
 print("Start")
-file = open_file_in(log_path)
+file, file_path = open_file_in(log_path)
 print("Log will be write into: {}".format(file.name))
 start_time = datetime.datetime.today()
 work_until = datetime.datetime(start_time.year, start_time.month, start_time.day, \
@@ -78,7 +87,7 @@ work_until = datetime.datetime(start_time.year, start_time.month, start_time.day
 print("Work will be terminated at: {}".format(work_until))
 ser_CAN = init_serial(input_port_name, input_port_baudrate)
 print("Port {} is opened sucessfully.".format(ser_CAN.name))
-main_loop(ser_CAN, work_until, file)
+main_loop(ser_CAN, work_until, file, file_path)
 print("Finished")
 
 #--------------------------------------
