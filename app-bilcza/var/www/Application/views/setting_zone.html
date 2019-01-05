@@ -1,0 +1,686 @@
+{% extends "base.html" %}
+
+{% block title %}Strefy | Elementy systemu{% endblock %}
+{% block subtitle %}Definiowanie stref{% endblock %}
+
+{% block head %}
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+   <div class="grid grid_18">
+       <ul class="gallery">
+          {% for room in rooms %}
+           <li class="room" rel="{{room.group_id}}">
+              <div class="img {{room.icon}}"></div>
+              <h3>{{room.name}}</h3>
+              <small>{{groups[room.group_id]}}</small>
+              <div class="actions">
+                 <a class="btn tertiary small" href="#" onclick="editButtonPress({{room.id}});return false;">Edytuj</a>
+                 <a class="btn secondary small" href="#" onclick="deleteButtonPress({{room.id}});return false;">Usuń</a>
+              </div>
+           </li>
+          {% endfor %}
+       </ul>
+   </div>
+   
+   <div class="grid grid_6" id="sidebar">
+       <a href="#" onclick="newButtonPress(); return false;" class="btn xlarge primary" style="margin-bottom: 0.5em; width: 183px; margin-top:13px;">Dodaj strefę</a>
+   
+       <div class="box">
+          <h3>Filtruj strefy</h3>
+          <ul>
+            <li><a href="#" onclick="filter('all'); return false;" class="btn_group" rel="all">Wszystkie</a></li>
+            {% for group in menu_rooms %}
+            <li><a href="#" onclick="filter({{group.id}}); return false;" class="btn_group" rel="{{group.id}}">{{group.name}}</a></li>
+            {% endfor %}
+          </ul>
+          <a href="#" onclick="newGroupButtonPress(); return false;" class="btn small tertiary">Dodaj grupę</a>
+          <a href="#" onclick="groupButtonPress(); return false;" class="btn small secondary">Zmień grupy</a>
+       </div>
+   </div>
+   
+   <div id="inpage_form_edit_room" style="display:none">
+
+         <form onsubmit="sendEditRoom(); return false;" method="post" class="form">    
+               
+               <input type="hidden" name="id" class="fld_edit_id" value=""/>
+               
+                <div class="field">
+                    <label for="fld_edit_name">Nazwa strefy</label>
+                    <div class="fields">
+                        <input type="text" name="name" value="" class="fld_edit_name" size="41" tabindex="1" placeholder="Nazwa strefy" />        
+                    </div>
+                </div>
+                
+                
+                <div class="field">
+                    <label for="fld_edit_group">Grupa strefy</label>
+                    <div class="fields">
+
+                        <select name="group_id" class="fld_edit_group" tabindex="1">        
+                            {% for group in menu_rooms %}                            
+                            <option value="{{group.id}}">{{group.name}}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="fld_edit_type">Rodzaj strefy</label>
+                    <div class="fields">
+
+                        <select name="type_id" class="fld_edit_type" tabindex="1">        
+                            <option value="">Wybierz</option>
+                            {% for type in menu_type_rooms %}                            
+                            <option value="{{type.id}}">{{type.name}}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                </div>
+                                
+                <div class="actions">
+                    <button type="submit" class="btn primary" tabindex="1">Zapisz</button>
+                </div>
+                
+            </form>
+   </div>
+
+   <div id="inpage_form_new_room" style="display:none">
+
+         <form onsubmit="sendNewRoom(); return false;" method="post" class="form">    
+                              
+                <div class="field">
+                    <label for="fld_new_name">Nazwa strefy</label>
+                    <div class="fields">
+                        <input type="text" name="name" value="" class="fld_new_name" size="41" tabindex="1" placeholder="Wpisz tu nazwę nowej strefy" />        
+                    </div>
+                </div> 
+                
+                <div class="field">
+                    <label for="fld_new_group">Grupa strefy</label>
+                    <div class="fields">
+
+                        <select name="group_id" class="fld_new_group" tabindex="1">        
+                            <option value="">Wybierz</option>
+                            {% for group in menu_rooms %}                            
+                            <option value="{{group.id}}">{{group.name}}</option>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="fld_new_type">Rodzaj strefy</label>
+                    <div class="fields">
+
+                        <select name="type_id" class="fld_new_type" tabindex="1">        
+                            <option value="">Wybierz</option>
+                            {% for type in menu_type_rooms %}                            
+                            <option value="{{type.id}}">{{type.name}}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                </div>
+                                
+                <div class="actions">
+                    <button type="submit" class="btn primary" tabindex="1">Zapisz</button>
+                </div>
+                
+            </form>
+   </div>
+
+   <div id="inpage_form_edit_group" style="display:none">
+
+         <form onsubmit="sendEditGroup(); return false;" method="post" class="form">    
+                              
+                <input type="hidden" name="id" class="fld_edit_id" value=""/>
+
+                <div class="field">
+                    <label for="fld_edit_name">Nazwa grupy strefy</label>
+                    <div class="fields">
+                        <input type="text" name="name" value="" class="fld_edit_name" size="41" tabindex="1" />        
+                    </div>
+                </div> 
+                                
+                <div class="actions">
+                    <button type="submit" class="btn primary" tabindex="1">Zapisz</button>
+                </div>
+                
+         </form>
+   </div>
+
+   <div id="inpage_form_new_group" style="display:none">
+
+         <form onsubmit="sendNewGroup(); return false;" method="post" class="form">    
+                              
+                <div class="field">
+                    <label for="fld_new_name">Nazwa grupy strefy</label>
+                    <div class="fields">
+                        <input type="text" name="name" value="" class="fld_new_name" size="41" tabindex="1" placeholder="Wpisz tu unikalną nazwę grupy stref" />        
+                    </div>
+                </div> 
+                                
+                <div class="actions">
+                    <button type="submit" class="btn primary" tabindex="1">Zapisz</button>
+                </div>
+                
+         </form>
+   </div>
+   
+   <div id="inpage_group_list" style="display:none">
+       <ul class="group_list">
+        {% for group in menu_rooms %}                            
+           <li>
+              <div class="actions">
+                  <a href="#" onclick="editGroupButtonPress({{group.id}}); return false;" class="btn small tertiary">Edytuj</a>
+                  <a href="#" onclick="deleteGroupButtonPress({{group.id}}); return false;" class="btn small secondary">Usuń</a>
+              </div>
+              <h3>{{group.name}}</h3>
+           </li>
+        {% endfor %}
+       </ul>
+   </div>
+
+   <script type="text/javascript">
+      function newButtonPress() {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.modal({
+             div: '#inpage_form_new_room',
+             title: 'Nowa strefa',
+             overlayClose: true,
+             afterClose: function() {
+                 $('.gallery').find('li').removeClass('hidden');
+                 $('#sidebar').removeClass('hidden');
+             }        
+          });
+          $('#modal .fld_new_name').placeholder();
+      }
+      function sendNewRoom() {
+          $.modal.close();
+          $.ajax({
+             url: './ajax/strefy/dodaj',
+             type: 'POST',
+             data: { 
+                 name: $('#modal .fld_new_name').val() , 
+                 group_id: $('#modal .fld_new_group').val(), 
+                 type_id: $('#modal .fld_new_type').val() 
+             },
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                          type: 'success',
+                          title: 'Nowa strefa',
+                          text: 'Strefa została poprawnie zapamiętana.',
+                          callback: function() {
+                              location.reload(true);
+                          }
+                      });                                       
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Nowa strefa',
+                          text: 'Niestety nie udało się dodać nową strefę. Spróbuj póżniej.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Nowa strefa',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });                 
+             },
+          });
+          return false;
+      }
+   
+      function editButtonPress(id) {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.ajax ({
+            url: './ajax/strefy/'+id,
+            success: function(obj) {
+              if (!obj.error) {
+                  $.modal ({
+                     div: '#inpage_form_edit_room',
+                     title: 'Edytuj strefę',
+                     overlayClose: true,
+                     afterClose: function() {
+                         $('.gallery').find('li').removeClass('hidden');
+                         $('#sidebar').removeClass('hidden');
+                     }        
+                  });              
+                  $('#modal .fld_edit_id').val(obj.data.id);
+                  $('#modal .fld_edit_name').val(obj.data.name);
+                  $('#modal .fld_edit_group').val(''+obj.data.group_id);
+                  $('#modal .fld_edit_type').val(''+obj.data.icon);
+              } else {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj strefę',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }             
+            },  
+            error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj strefę',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+            }
+          });
+      }
+      function sendEditRoom() {
+          $.modal.close();
+          $.ajax({
+             url: './ajax/strefy/zmien',
+             type: 'POST',
+             data: { 
+                 id: $('#modal .fld_edit_id').val() , 
+                 name: $('#modal .fld_edit_name').val() , 
+                 group_id: $('#modal .fld_edit_group').val(), 
+                 type_id: $('#modal .fld_edit_type').val()                  
+             },
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                          type: 'success',
+                          title: 'Edytuj strefę',
+                          text: 'Strefa została poprawnie zmodyfikowana.',
+                          callback: function() {
+                              location.reload(true);
+                          }
+                      });                                       
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Edytuj strefę',
+                          text: 'Niestety nie udało się zmodyfikować strefy. Spróbuj póżniej.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj strefę',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });                 
+             },
+          });
+          return false;
+      }
+      
+      function deleteButtonPress(id) {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.ajax({
+              url: './ajax/strefy/'+id,
+              success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                         type: 'info',
+                         title: 'Usuwanie strefy',
+                         text: 'Czy napewno chcesz usunąć strefę "' + obj.data.name + '"?',
+                         buttons: [{
+                             text: 'Tak',
+                             callback: function() {
+                                 $.msgAlert.close();
+                                 $.ajax({
+                                     url: './ajax/strefy/usun/'+id,
+                                     success: function(obj2) {
+                                         if (!obj2.error) {
+                                             $.msgAlert({
+                                                 type: 'success',
+                                                 title: 'Usuwanie strefy',
+                                                 text: 'Strefa "' + obj.data.name + '" została usunięta poprawnie.',
+                                                 callback: function() {
+                                                     location.reload(true);
+                                                 }
+                                             });
+                                         } else {
+                                             $.msgAlert({
+                                                 type: 'error',
+                                                 title: 'Usuwanie strefy',
+                                                 text: 'Strefa "' + obj.data.name + '" nie została usunięta poprawnie.',
+                                                 callback: function() {
+                                                      $('.gallery').find('li').removeClass('hidden');
+                                                      $('#sidebar').removeClass('hidden');
+                                                 }
+                                             });
+                                         }
+                                     },
+                                     error : function() {
+                                         $.msgAlert({
+                                             type: 'error',
+                                             title: 'Usuwanie strefy',
+                                             text: 'Strefa "' + obj.data.name + '" nie została usunięta poprawnie.',
+                                             callback: function() {
+                                                  $('.gallery').find('li').removeClass('hidden');
+                                                  $('#sidebar').removeClass('hidden');
+                                             }
+                                         });
+                                     }
+                                 })
+                             }
+                         }, {
+                             text: 'Nie',
+                             callback: function() {
+                                 $.msgAlert.close();
+                                 $('.gallery').find('li').removeClass('hidden');
+                                 $('#sidebar').removeClass('hidden');
+                             }
+                         }],
+                      });
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Usuwanie strefy',
+                          text: 'Niestety nie udało się połączyć z serwerem.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });
+                  }
+              },
+              error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Usuwanie strefy',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }
+          });
+      }
+      
+      function filter(id) {
+          var items = $('.gallery').find('li');
+          var filtered_items = $('.gallery').find('li[rel='+id+']');
+          if (id == 'all') { items.removeClass('hidden'); return false; }
+          items.addClass('hidden');
+          filtered_items.removeClass('hidden');
+      }
+      
+     function newGroupButtonPress() {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.modal({
+             div: '#inpage_form_new_group',
+             title: 'Nowa grupa stref',
+             overlayClose: true,
+             afterClose: function() {
+                 $('.gallery').find('li').removeClass('hidden');
+                 $('#sidebar').removeClass('hidden');
+             }        
+          });
+          $('#modal .fld_new_name').placeholder();
+      }
+      function sendNewGroup() {
+          $.modal.close();
+          $.ajax({
+             url: './ajax/strefy/grupa/dodaj',
+             type: 'POST',
+             data: { 
+                 name: $('#modal .fld_new_name').val() , 
+             },
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                          type: 'success',
+                          title: 'Nowa grupa stref',
+                          text: 'Grupa stref została poprawnie zapamiętana.',
+                          callback: function() {
+                              location.reload(true);
+                          }
+                      });                                       
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Nowa grupa stref',
+                          text: 'Niestety nie udało się dodać nową grupę stref. Spróbuj póżniej.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Nowa grupa stref',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });                 
+             },
+          });
+          return false;
+      }
+      
+      function editGroupButtonPress(id) {
+          $.ajax ({
+            url: './ajax/strefy/grupa/'+id,
+            success: function(obj) {
+              if (!obj.error) {
+                  $.modal ({
+                     div: '#inpage_form_edit_group',
+                     title: 'Edytuj grupę stref',
+                     overlayClose: true,
+                     afterClose: function() {
+                         $('.gallery').find('li').removeClass('hidden');
+                         $('#sidebar').removeClass('hidden');
+                     }        
+                  });              
+                  $('#modal .fld_edit_id').val(obj.data.id);
+                  $('#modal .fld_edit_name').val(obj.data.name);
+              } else {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj grupę stref',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }             
+            },  
+            error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj grupę stref',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+            }
+          });
+      }
+      function sendEditGroup() {
+          $.modal.close();
+          $.ajax({
+             url: './ajax/strefy/grupa/zmien',
+             type: 'POST',
+             data: { 
+                 id: $('#modal .fld_edit_id').val() , 
+                 name: $('#modal .fld_edit_name').val()
+             },
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                          type: 'success',
+                          title: 'Edytuj grupę stref',
+                          text: 'Grupa stref została poprawnie zmodyfikowana.',
+                          callback: function() {
+                              location.reload(true);
+                          }
+                      });                                       
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Edytuj grupę stref',
+                          text: 'Niestety nie udało się zmodyfikować grupę stref. Spróbuj póżniej.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj grupę stref',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });                 
+             },
+          });
+          return false;
+      }
+      
+      function deleteGroupButtonPress(id) {
+          $.ajax({
+              url: './ajax/strefy/grupa/'+id,
+              success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                         type: 'info',
+                         title: 'Usuwanie grupę stref',
+                         text: 'Czy napewno chcesz usunąć grupę stref "' + obj.data.name + '"?',
+                         buttons: [{
+                             text: 'Tak',
+                             callback: function() {
+                                 $.msgAlert.close();
+                                 $.ajax({
+                                     url: './ajax/strefy/grupa/usun/'+id,
+                                     success: function(obj2) {
+                                         if (!obj2.error) {
+                                             $.msgAlert({
+                                                 type: 'success',
+                                                 title: 'Usuwanie grupę stref',
+                                                 text: 'Grupa stref "' + obj.data.name + '" została usunięta poprawnie.',
+                                                 callback: function() {
+                                                     location.reload(true);
+                                                 }
+                                             });
+                                         } else {
+                                             $.msgAlert({
+                                                 type: 'error',
+                                                 title: 'Usuwanie grupę stref',
+                                                 text: 'Grupa stref "' + obj.data.name + '" nie została usunięta poprawnie.',
+                                                 callback: function() {
+                                                      $('.gallery').find('li').removeClass('hidden');
+                                                      $('#sidebar').removeClass('hidden');
+                                                 }
+                                             });
+                                         }
+                                     },
+                                     error : function() {
+                                         $.msgAlert({
+                                             type: 'error',
+                                             title: 'Usuwanie grupę stref',
+                                             text: 'Grupa stref "' + obj.data.name + '" nie została usunięta poprawnie.',
+                                             callback: function() {
+                                                  $('.gallery').find('li').removeClass('hidden');
+                                                  $('#sidebar').removeClass('hidden');
+                                             }
+                                         });
+                                     }
+                                 })
+                             }
+                         }, {
+                             text: 'Nie',
+                             callback: function() {
+                                 $.msgAlert.close();
+                                 $('.gallery').find('li').removeClass('hidden');
+                                 $('#sidebar').removeClass('hidden');
+                             }
+                         }],
+                      });
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Usuwanie grupę stref',
+                          text: 'Niestety nie udało się połączyć z serwerem.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });
+                  }
+              },
+              error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Usuwanie grupę stref',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }
+          });
+      }
+      
+      function groupButtonPress() {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.modal({
+             div: '#inpage_group_list',
+             title: 'Zarządzanie grupami stref',
+             overlayClose: true,
+             afterClose: function() {
+                 $('.gallery').find('li').removeClass('hidden');
+                 $('#sidebar').removeClass('hidden');
+             }        
+          });          
+      }
+   </script>
+   
+{% endblock %}

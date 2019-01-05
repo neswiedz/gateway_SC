@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Strefy | System{% endblock %}
+{% block subtitle %}Strefy{% endblock %}
+
+{% block head %}
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+   <div class="grid grid_18">
+       <ul class="items status">
+          {% for module in modules %}
+           <li id="item_{% if module.category=='ACTOR' %}actor_{% endif %}{% if module.category=='SENSOR' %}sensor_{% endif %}_{{module.id}}" rel="{% if module.category=='ACTOR' %}actor_{% endif %}{% if module.category=='SENSOR' %}sensor_{% endif %}{{module.element_id}}">
+              <div class="img {{module.icon}}"></div>
+              <h3>{{module.name}}</h3>
+              <small>{{module.type}}<br/>{{module.room}}</small>
+              <div style="clear:both;" class="dynamic"></div>
+           </li>
+          {% endfor %}
+       </ul>
+   </div>
+   
+   <div class="grid grid_6" id="sidebar">
+       <div class="box" style="margin-top:13px;">
+          <h3>Filtruj po typie</h3>
+          <ul style="margin-bottom:0.5em;">
+            <li><a href="#" onclick="filter('all'); return false;" class="btn_group" rel="all">Wszystkie</a></li>
+          </ul>
+          <h4 style="text-align:right">Aktorzy</h4>
+          <ul style="margin-bottom:0.5em;">
+            {% for group in group_actors %}
+            <li><a href="#" onclick="filter('actor_{{group.id}}'); return false;" class="btn_group" rel="actor_{{group.id}}">{{group.name}}</a></li>
+            {% endfor %}
+          </ul>
+          <h4 style="text-align:right">Sensory</h4>
+          <ul>
+            {% for group in group_sensors %}
+            <li><a href="#" onclick="filter('sensor_{{group.id}}'); return false;" class="btn_group" rel="sensor_{{group.id}}">{{group.name}}</a></li>
+            {% endfor %}
+          </ul>
+
+       </div>
+   </div>
+   
+   <script type="text/javascript">
+      var widgets = [
+          {% for module in modules %}
+             { 
+                id: 'item_{% if module.category=='ACTOR' %}actor_{% endif %}{% if module.category=='SENSOR' %}sensor_{% endif %}_{{module.id}}',
+                elem_id: '{{module.id}}',
+                name: '{{module.name}}',
+                type: '{{module.category}}',
+                type_id: {{module.element_id}},
+                status: {
+                  {% for channel_id in module.status|keys %}
+                     '{{channel_id}}': '{{module.status[channel_id]}}' {% if not loop.last %}, {% endif %}
+                  {% endfor %}                    
+                }
+             }{% if not loop.last %}, {% endif %}
+          {% endfor %}
+      ];
+      
+      function JsInit() {
+          App.widgetInit(widgets);
+      }
+   
+      function filter(id) {
+          var items = $('.items').find('li');
+          var filtered_items = $('.items').find('li[rel='+id+']');
+          var filtered_connections = $('.items').find('li[rel='+id+'] .connections li');
+          if (id == 'all') { items.removeClass('hidden'); return false; }
+          items.addClass('hidden');
+          filtered_items.removeClass('hidden');
+          filtered_connections.removeClass('hidden');
+      }
+      
+   </script>
+   
+{% endblock %}

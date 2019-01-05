@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}Aktualizacja firmware'u | System{% endblock %}
+{% block subtitle %}Zmiana firmware'u w modułach{% endblock %}
+
+{% block head %}
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+   <div class="grid grid_18">
+       <ul class="gallery">
+          {% for module in modules %}
+           <li rel="{{module.device_type_id}}">
+              <div class="img {{module.icon}}"></div>
+              <h3>{{module.description}}</h3>
+              <small>{{module.device_type_name}}<BR>ID: {{module.group_id}}.{{module.item_id}}</small>
+              <div class="actions">
+                 <a class="btn tertiary small" href="#" onclick="infoButtonPress({{module.id}});return false;">Info</a>
+                 <a class="btn secondary small" href="./ustawienia/aktualizacja/{{module.id}}">Zmień firmware</a>
+              </div>
+           </li>
+          {% endfor %}
+       </ul>
+   </div>
+   
+   <div class="grid grid_6" id="sidebar">
+       <div class="box" style="margin-top:13px;">
+          <h3>Filtruj moduły po typie</h3>
+          <ul>
+            <li><a href="#" onclick="filter('all'); return false;" class="btn_group" rel="all">Wszystkie</a></li>
+            {% for group in groups %}
+            <li><a href="#" onclick="filter({{group.id}}); return false;" class="btn_group" rel="{{group.id}}">{{group.name}}</a></li>
+            {% endfor %}
+          </ul>
+       </div>
+   </div>
+   
+
+   <div id="inpage_info_module" style="display:none">
+      <div class="form">
+          <div class="field">
+             <label>Nazwa modułu</label><div id="mod_name" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>ID</label><div id="mod_id" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Typ modułu</label><div id="mod_type" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Typ CAN</label><div id="mod_can" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Wersja firmware</label><div id="mod_firmware" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Wersja bootloadera</label><div id="mod_bootloader" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Wersja hardware</label><div id="mod_univ" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Identyfikator procesora</label><div id="mod_proc" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Napięcie zasilania</label><div id="mod_voltage" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Opis serwisowy</label><div id="mod_description" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="actions" id="mod_item">
+             <a href="#" onclick="reloadButtonPress(); return false;" class="btn primary">Odśwież</a>
+             <a href="#" class="btn tertiary">Zmień firmware</a>
+          </div>
+      </div>
+   </div>
+   
+   <script type="text/javascript">
+      function infoButtonPress(id) {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.ajax ({
+            url: './ajax/modul/'+id,
+            success: function(obj) {
+              if (!obj.error) {
+                  $.modal ({
+                     div: '#inpage_info_module',
+                     title: 'Informacje o module',
+                     overlayClose: true,
+                     afterClose: function() {
+                         $('.gallery').find('li').removeClass('hidden');
+                         $('#sidebar').removeClass('hidden');
+                     }        
+                  });              
+                  $('#modal #mod_name').html(obj.data.description); 
+                  $('#modal #mod_id').html(obj.data.group_id+"."+obj.data.item_id); 
+                  $('#modal #mod_type').html(obj.data.device_type); 
+                  $('#modal #mod_can').html(obj.data.TYPE); 
+                  $('#modal #mod_firmware').html(obj.data.FIRMWARE); 
+                  $('#modal #mod_bootloader').html(obj.data.BOOTLOADER); 
+                  $('#modal #mod_univ').html(obj.data.UNIV_VERSION); 
+                  $('#modal #mod_proc').html(obj.data.PROCESSOR_ID.toUpperCase()+"h"); 
+                  $('#modal #mod_voltage').html(Math.round(obj.data.VOLTAGE*100)/100+" V"); 
+                  $('#modal #mod_description').html(obj.data.DESCRIPTION); 
+                  $('#modal #mod_item').attr('rel', obj.data.id);
+                  $('#modal #mod_item a').attr('href', "./ustawienia/aktualizacja/"+obj.data.id);
+              } else {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Informacje o module',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }             
+            },  
+            error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Informacje o module',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+            }
+          });
+      }
+      function reloadButtonPress() {
+          id = $('#modal #mod_item').attr('rel');
+          $.ajax({
+             url: './ajax/modul/odswiez/'+id,
+             type: 'GET',
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.modal.close();
+                      infoButtonPress(id);
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Odświeżanie modułu',
+                          text: 'Niestety nie udało się odświeżyć informacji o module. Spróbuj póżniej.',
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Odświeżanie modułu',
+                      text: 'Niestety nie udało się odświeżyć informacji o module. Błąd połączenia z serwerem. Spróbuj później.',
+                  });                 
+             },
+          });
+      }
+      
+      function filter(id) {
+          var items = $('.gallery').find('li');
+          var filtered_items = $('.gallery').find('li[rel='+id+']');
+          if (id == 'all') { items.removeClass('hidden'); return false; }
+          items.addClass('hidden');
+          filtered_items.removeClass('hidden');
+      }
+      
+   </script>
+   
+{% endblock %}

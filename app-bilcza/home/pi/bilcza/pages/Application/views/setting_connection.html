@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}Połączenia | System{% endblock %}
+{% block subtitle %}Konfiguracja połączeń między modułami a aktorami i sensorami{% endblock %}
+
+{% block head %}
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+   <div class="grid grid_18">
+       <ul class="items">
+          {% for module in modules %}
+           <li rel="{{module.device_type_id}}">
+              <div class="img {{module.icon}}"></div>
+              <h3>{{module.description}}</h3>
+              <small>{{module.device_type_name}}<BR>ID: {{module.group_id}}.{{module.item_id}}</small>
+              {% if module.connects %}
+              <ul class="connections">
+                {% for con in module.connects %}
+                    <li>
+                      {% if con.id %}
+                          <div class="{{con.icon}}-{{con.channel}}" title="{{con.group_room}} &raquo; {{con.room}} &raquo; {{con.name}}"></div>
+                      {% else %}
+                          <div class="none"></div>
+                      {% endif %}
+                      <small>{{con.connection_type}}<br/>&nbsp; {{con.device_channel}}</small>
+                    </li>                               
+                {% endfor %}
+              </ul>
+              {% endif %}
+              <div class="actions">
+                 <a class="btn tertiary small" href="#" onclick="infoButtonPress({{module.id}});return false;">Info</a>
+                 <a class="btn secondary small" href="./ustawienia/{{module.id}}">Zmień</a>
+              </div>
+           </li>
+          {% endfor %}
+       </ul>
+   </div>
+   
+   <div class="grid grid_6" id="sidebar">
+       <div class="box" style="margin-top:13px;">
+          <h3>Filtruj moduły po typie</h3>
+          <ul>
+            <li><a href="#" onclick="filter('all'); return false;" class="btn_group" rel="all">Wszystkie</a></li>
+            {% for group in groups %}
+            <li><a href="#" onclick="filter({{group.id}}); return false;" class="btn_group" rel="{{group.id}}">{{group.name}}</a></li>
+            {% endfor %}
+          </ul>
+       </div>
+   </div>
+   
+
+   <div id="inpage_info_module" style="display:none">
+      <div class="form">
+          <div class="field">
+             <label>Nazwa modułu</label><div id="mod_name" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>ID</label><div id="mod_id" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Typ modułu</label><div id="mod_type" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Typ CAN</label><div id="mod_can" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Wersja firmware</label><div id="mod_firmware" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Wersja bootloadera</label><div id="mod_bootloader" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Wersja hardware</label><div id="mod_univ" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Identyfikator procesora</label><div id="mod_proc" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Napięcie zasilania</label><div id="mod_voltage" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Opis serwisowy</label><div id="mod_description" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="actions" id="mod_item">
+             <a href="#" onclick="reloadButtonPress(); return false;" class="btn primary">Odśwież</a>
+             <a href="#" class="btn tertiary">Zmień</a>
+          </div>
+      </div>
+   </div>
+   
+   <script type="text/javascript">
+      function infoButtonPress(id) {
+          $('.items').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.ajax ({
+            url: './ajax/modul/'+id,
+            success: function(obj) {
+              if (!obj.error) {
+                  $.modal ({
+                     div: '#inpage_info_module',
+                     title: 'Informacje o module',
+                     overlayClose: true,
+                     afterClose: function() {
+                         $('.items').find('li').removeClass('hidden');
+                         $('#sidebar').removeClass('hidden');
+                     }        
+                  });              
+                  $('#modal #mod_name').html(obj.data.description); 
+                  $('#modal #mod_id').html(obj.data.group_id+"."+obj.data.item_id); 
+                  $('#modal #mod_type').html(obj.data.device_type); 
+                  $('#modal #mod_can').html(obj.data.TYPE); 
+                  $('#modal #mod_firmware').html(obj.data.FIRMWARE); 
+                  $('#modal #mod_bootloader').html(obj.data.BOOTLOADER); 
+                  $('#modal #mod_univ').html(obj.data.UNIV_VERSION); 
+                  if (obj.data.PROCESSOR_ID) {
+                      $('#modal #mod_proc').html(obj.data.PROCESSOR_ID.toUpperCase()+"h");
+                  } else {
+                      $('#modal #mod_voltage').html('b.d.');
+                  } 
+                  if (obj.data.VOLTAGE) {
+                      $('#modal #mod_voltage').html(Math.round(obj.data.VOLTAGE*100)/100+" V");
+                  } else {
+                      $('#modal #mod_voltage').html('b.d.');
+                  }
+                  $('#modal #mod_description').html(obj.data.DESCRIPTION); 
+                  $('#modal #mod_item').attr('rel', obj.data.id);
+                  $('#modal #mod_item a').attr('href', "./ustawienia/"+obj.data.id);
+              } else {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Informacje o module',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.items').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }             
+            },  
+            error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Informacje o module',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.items').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+            }
+          });
+      }
+      function reloadButtonPress() {
+          id = $('#modal #mod_item').attr('rel');
+          $.ajax({
+             url: './ajax/modul/odswiez/'+id,
+             type: 'GET',
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.modal.close();
+                      infoButtonPress(id);
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Odświeżanie modułu',
+                          text: 'Niestety nie udało się odświeżyć informacji o module. Spróbuj póżniej.',
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Odświeżanie modułu',
+                      text: 'Niestety nie udało się odświeżyć informacji o module. Błąd połączenia z serwerem. Spróbuj później.',
+                  });                 
+             },
+          });
+      }
+   
+      function filter(id) {
+          var items = $('.items').find('li');
+          var filtered_items = $('.items').find('li[rel='+id+']');
+          var filtered_connections = $('.items').find('li[rel='+id+'] .connections li');
+          if (id == 'all') { items.removeClass('hidden'); return false; }
+          items.addClass('hidden');
+          filtered_items.removeClass('hidden');
+          filtered_connections.removeClass('hidden');
+      }
+      
+      function JsInit() {
+          $('.items .connections div').tooltip();
+      }
+      
+   </script>
+   
+{% endblock %}

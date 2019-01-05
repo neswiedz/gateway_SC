@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}Połączenia | System{% endblock %}
+{% block subtitle %}Rekonfiguracja połączeń{% endblock %}
+
+{% block head %}
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+   <div class="grid grid_24">
+     {%- if flash.error -%}
+     <div class="msgBar warning"><div class="icon"></div>{{flash.error}}</div>
+     {%- endif -%}
+     {%- if flash.success -%}
+     <div class="msgBar success"><div class="icon"></div>{{flash.success}}</div>
+     {%- endif -%}
+
+     <h3>Moduł {{module.description}}</h3>
+     <strong>{{module.device_type_name}}<br/>ID: {{module.group_id}}.{{module.item_id}}</strong>
+     <ul class="gallery config">
+        {% for channel in range(1, module.channels) %}
+           <li><a id="btn_ch_{{channel}}" onclick="deleteItem('ch_{{channel}}'); return false;" style="display: none; float: right;">&nbsp; Usuń</a><a id="btnp_ch_{{channel}}" onclick="changePolarItem({{module.id}},{{channel}}); return false;" style="display: none; float: right;">Typ:</a><h3>CH {{channel}}</h3><div class="channel" rel="ch_{{channel}}"></div></li>
+        {% endfor %}
+     </ul>
+     <div class="clear"></div>  
+     <form class="form" method="POST" action="./ustawienia/zapisz">
+        <input type="hidden" name="id" value="{{module.id}}"/>
+        <input type="hidden" name="channels" value="{{module.channels}}"/>
+        {% for channel in range(1, module.channels) %}
+        <input type="hidden" id="ch_{{channel}}" name="ch_{{channel}}" value=""/>
+        {% endfor %}
+        <div style="text-align: right; margin-right: 35px;">
+           <button class="btn primary" type="submit">Zapisz zmiany</button>
+           <a href='./ustawienia' class="btn secondary">Powrót</a>
+        </div>
+     </form>
+   
+     <h3 style="margin-top: 1.25em; margin-bottom:0;">Aktorzy</h3>
+     <ul class="mini_gallery">
+          {% for actor in actors %}
+             {% for channel in range(1, actor.channels) %}
+           <li id="actor_{{actor.id}}_{{channel}}">
+              <div class="img {{actor.icon}}-{{channel}}"></div>
+              <h3>{{actor.name}}</h3>
+              <small>{{actor.type}}<br/>{{actor.group_room}} &raquo; {{actor.room}}<br/>CH {{channel}}</small>
+           </li>
+             {% endfor %}
+          {% endfor %}
+     </ul>
+     <div class="clear"></div>
+     
+     <h3 style="margin-top: 1.25em; margin-bottom:0;">Sensory</h3>
+     <ul class="mini_gallery">
+          {% for sensor in sensors %}
+             {% for channel in range(1, sensor.channels) %}
+           <li id="sensor_{{sensor.id}}_{{channel}}">
+              <div class="img {{sensor.icon}}-{{channel}}"></div>
+              <h3>{{sensor.name}}</h3>
+              <small>{{sensor.type}}<br/>{{sensor.group_room}} &raquo; {{sensor.room}}<br/>CH {{channel}}</small>
+           </li>
+             {% endfor %}
+          {% endfor %}     
+     </ul>
+   </div>
+      
+   
+   <script type="text/javascript">
+      var droppable_options = {
+             accept: ".mini_gallery > li",
+             activeClass: "channel-highlight",
+             drop: function(event, ui) {
+                 elem = $(this);
+                 val = $('#'+elem.attr('rel')).val();
+                 if (val.length>0) {
+                     alert('Już jest inny element!');
+                     ui.animate({ left: '0', top: '0'});
+                 } else {
+                     elem.droppable("option", "disabled", true);
+                     $('#'+elem.attr('rel')).val(ui.draggable.attr('id'));
+                     elem.html(ui.draggable.children());
+                     ui.draggable.hide();
+                     $('#btn_'+elem.attr('rel')).show();
+                 }
+             } 
+      };
+
+      function JsInit() {
+         $('.gallery li div.channel').droppable(droppable_options);
+
+         $('.mini_gallery li').draggable({
+             revert: "invalid",
+             cursor: "move" 
+         });
+         
+         var connects = [ {% for conn in connects %}
+         '{{conn}}'{% if not loop.last %}, {% endif %}
+         {% endfor %} ];
+         $(connects).each(function(i, n) {
+             $('#'+n).hide();
+         });
+         
+         var modules = [ {% for conn in module.connects %}
+           { name : '{{conn.js_name}}', channel : {{conn.device_channel}}, connection_type : '{{conn.connection_type}}' }{% if not loop.last %}, {% endif %}
+         {% endfor %} ];
+         $(modules).each(function(i, n) {
+             setItem(n.name, n.channel, n.connection_type);             
+         });
+      }
+      
+      function setItem(id, ch, connection_type) {
+          elem = $("#"+id);
+          channel = $('div.channel[rel="ch_'+ch+'"]');
+          
+          channel.droppable("option", "disabled", true);
+          $('#ch_'+ch).val(id);
+          channel.html(elem.children());
+          elem.hide();
+          $('#btn_ch_'+ch).show();
+          $('#btnp_ch_'+ch).html('Typ: '+connection_type).show();
+      }
+      
+      function deleteItem(id) {
+          val = $("#"+id).val();
+          $('#'+val).html($('.gallery li div.channel[rel="'+id+'"]').children());
+
+          $("#"+id).val("");
+          $("#btn_"+id).hide();
+          $("#btnp_"+id).hide();
+          $('.gallery li div.channel[rel="'+id+'"]').html('');
+          $('.gallery li div.channel[rel="'+id+'"]').droppable("option", "disabled", false);
+
+          $('#'+val).show().animate({ left: '0', top: '0'});
+      }
+      
+      function changePolarItem(dev_id, ch) {
+          var _this = this;
+          $.ajax ({
+            url: './ajax/ustawienia/polaryzacja',
+            type: 'POST',
+            data: { id: dev_id, channel: ch },
+            success: function(obj) {
+              if (!obj.error) {
+                  $("#btnp_ch_"+ch).html('Typ: '+obj.connection_type);
+                  $.msgAlert({
+                      type: 'success',
+                      title: 'Zmiana polaryzacji połączenia modułu z elementem',
+                      text: 'Nastąpiła zmiana polaryzacji połączenia.',
+                  });
+              } else {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Zmiana polaryzacji połączenia modułu z elementem',
+                      text: 'Najpierw zapisz zmiany połączeń, a później zmień polaryzację połączenia.',
+                  });
+              }             
+            },  
+            error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Zmiana polaryzacji połączenia modułu z elementem',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                  });
+            }
+          });
+      } 
+   </script>
+   
+{% endblock %}

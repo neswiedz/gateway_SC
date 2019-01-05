@@ -1,0 +1,5 @@
+var DISQUSWIDGETS;
+
+if (typeof DISQUSWIDGETS != 'undefined') {
+    DISQUSWIDGETS.displayCount({"text":{"and":"i","comments":{"zero":"0 komentarzy","multiple":"{num} komentarze","one":"1 komentarz"}},"counts":[{"id":"3332 http:\/\/www.benedykt.net\/?p=3332","comments":10}]});
+}

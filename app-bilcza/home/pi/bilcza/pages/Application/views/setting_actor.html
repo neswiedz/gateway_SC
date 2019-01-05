@@ -1,0 +1,396 @@
+{% extends "base.html" %}
+
+{% block title %}Aktorzy | Elementy systemu{% endblock %}
+{% block subtitle %}Definiowanie aktorów{% endblock %}
+
+{% block head %}
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+   <div class="grid grid_18">
+       <ul class="gallery">
+          {% for actor in actors %}
+           <li class="actor" rel="{{actor.element_id}}">
+              <div class="img {{actor.icon}}"></div>
+              <h3>{{actor.name}}</h3>
+              <small><strong>{{actor.type}}</strong><br/>{{actor.group_room}} &raquo; {{actor.room}}</small>
+              <div class="actions">
+                 <a class="btn tertiary small" href="#" onclick="editButtonPress({{actor.id}});return false;">Edytuj</a>
+                 <a class="btn secondary small" href="#" onclick="deleteButtonPress({{actor.id}});return false;">Usuń</a>
+              </div>
+           </li>
+          {% endfor %}
+       </ul>
+   </div>
+   
+   <div class="grid grid_6" id="sidebar">
+       <a href="#" onclick="newButtonPress(); return false;" class="btn xlarge primary" style="margin-bottom: 0.5em; width: 183px; margin-top:13px;">Dodaj aktora</a>
+   
+       <div class="box">
+          <h3>Filtruj aktorów po typie</h3>
+          <ul>
+            <li><a href="#" onclick="filter('all'); return false;" class="btn_group" rel="all">Wszystkie</a></li>
+            {% for group in groups %}
+            <li><a href="#" onclick="filter({{group.id}}); return false;" class="btn_group" rel="{{group.id}}">{{group.name}}</a></li>
+            {% endfor %}
+          </ul>
+       </div>
+   </div>
+   
+   <div id="inpage_form_edit_actor" style="display:none">
+
+         <form onsubmit="sendEditActor(); return false;" method="post" class="form">    
+               
+               <input type="hidden" name="id" class="fld_edit_id" value=""/>
+               
+                <div class="field">
+                    <label for="fld_edit_name">Nazwa aktora</label>
+                    <div class="fields">
+                        <input type="text" name="name" value="" class="fld_edit_name" size="41" tabindex="1"/>        
+                    </div>
+                </div>
+                
+                
+                <div class="field">
+                    <label for="fld_edit_group">Rodzaj aktora</label>
+                    <div class="fields">
+
+                        <select name="element_id" class="fld_edit_group" tabindex="1">        
+                            {% for group in groups %}                            
+                            <option value="{{group.id}}">{{group.name}}</option>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>
+                                
+                <div class="field">
+                    <label for="fld_edit_room">Strefa</label>
+                    <div class="fields">
+
+                        <select name="room_id" class="fld_edit_room" tabindex="1">        
+                            {% for group in menu_rooms %}                            
+                            <optgroup label="{{group.name}}">
+                               {% for room in group.rooms %}
+                                  <option value="{{room.id}}">{{room.name}}</option>
+                               {% endfor %}
+                            </optgroup>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>
+
+
+                <div class="actions">
+                    <button type="submit" class="btn primary" tabindex="1">Zapisz</button>
+                </div>
+                
+            </form>
+   </div>
+
+   <div id="inpage_form_new_actor" style="display:none">
+
+         <form onsubmit="sendNewActor(); return false;" method="post" class="form">    
+                              
+                <div class="field">
+                    <label for="fld_new_name">Nazwa aktora</label>
+                    <div class="fields">
+                        <input type="text" name="name" value="" class="fld_new_name" size="41" tabindex="1" placeholder="Wpisz tu nazwę nowego aktora" />        
+                    </div>
+                </div> 
+                
+                <div class="field">
+                    <label for="fld_new_group">Rodzaj aktora</label>
+                    <div class="fields">
+
+                        <select name="element_id" class="fld_new_group" tabindex="1">        
+                            {% for group in groups %}                            
+                            <option value="{{group.id}}">{{group.name}}</option>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>
+                                
+                <div class="field">
+                    <label for="fld_new_room">Strefa</label>
+                    <div class="fields">
+
+                        <select name="room_id" class="fld_new_room" tabindex="1">        
+                            {% for group in menu_rooms %}                            
+                            <optgroup label="{{group.name}}">
+                               {% for room in group.rooms %}
+                                  <option value="{{room.id}}">{{room.name}}</option>
+                               {% endfor %}
+                            </optgroup>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>     
+                <div class="actions">
+                    <button type="submit" class="btn primary" tabindex="1">Zapisz</button>
+                </div>
+                
+            </form>
+   </div>
+
+   <script type="text/javascript">
+      function newButtonPress() {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.modal({
+             div: '#inpage_form_new_actor',
+             title: 'Nowy aktor',
+             overlayClose: true,
+             afterClose: function() {
+                 $('.gallery').find('li').removeClass('hidden');
+                 $('#sidebar').removeClass('hidden');
+             }        
+          });
+          $('#modal .fld_new_name').placeholder();
+      }
+      function sendNewActor() {
+          $.modal.close();
+          $.ajax({
+             url: './ajax/aktor/dodaj',
+             type: 'POST',
+             data: { 
+                 name: $('#modal .fld_new_name').val() , 
+                 element_id: $('#modal .fld_new_group').val(), 
+                 room_id: $('#modal .fld_new_room').val() 
+             },
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                          type: 'success',
+                          title: 'Nowy aktor',
+                          text: 'Aktor został poprawnie zapamiętany.',
+                          callback: function() {
+                              location.reload(true);
+                          }
+                      });                                       
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Nowy aktor',
+                          text: 'Niestety nie udało się dodać nowego aktora. Spróbuj póżniej.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Nowy aktor',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });                 
+             },
+          });
+          return false;
+      }
+   
+      function editButtonPress(id) {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.ajax ({
+            url: './ajax/aktor/'+id,
+            success: function(obj) {
+              if (!obj.error) {
+                  $.modal ({
+                     div: '#inpage_form_edit_actor',
+                     title: 'Edytuj aktora',
+                     overlayClose: true,
+                     afterClose: function() {
+                         $('.gallery').find('li').removeClass('hidden');
+                         $('#sidebar').removeClass('hidden');
+                     }        
+                  });              
+                  $('#modal .fld_edit_id').val(obj.data.id);
+                  $('#modal .fld_edit_name').val(obj.data.name);
+                  $('#modal .fld_edit_group').val(''+obj.data.element_id);
+                  $('#modal .fld_edit_room').val(''+obj.data.room_id);
+              } else {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj aktora',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }             
+            },  
+            error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj aktora',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+            }
+          });
+      }
+      function sendEditActor() {
+          $.modal.close();
+          $.ajax({
+             url: './ajax/aktor/zmien',
+             type: 'POST',
+             data: { 
+                 id: $('#modal .fld_edit_id').val() , 
+                 name: $('#modal .fld_edit_name').val() , 
+                 element_id: $('#modal .fld_edit_group').val(), 
+                 room_id: $('#modal .fld_edit_room').val() 
+             },
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                          type: 'success',
+                          title: 'Edytuj aktora',
+                          text: 'Aktor został poprawnie zmodyfikowany.',
+                          callback: function() {
+                              location.reload(true);
+                          }
+                      });                                       
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Edytuj aktora',
+                          text: 'Niestety nie udało się zmodyfikować aktora. Spróbuj póżniej.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj aktora',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });                 
+             },
+          });
+          return false;
+      }
+      
+      function deleteButtonPress(id) {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.ajax({
+              url: './ajax/aktor/'+id,
+              success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                         type: 'info',
+                         title: 'Usuwanie aktora',
+                         text: 'Czy napewno chcesz usunąć aktora "' + obj.data.name + '"?',
+                         buttons: [{
+                             text: 'Tak',
+                             callback: function() {
+                                 $.msgAlert.close();
+                                 $.ajax({
+                                     url: './ajax/aktor/usun/'+id,
+                                     success: function(obj2) {
+                                         if (!obj2.error) {
+                                             $.msgAlert({
+                                                 type: 'success',
+                                                 title: 'Usuwanie aktora',
+                                                 text: 'Aktor "' + obj.data.name + '" został usunięty poprawnie.',
+                                                 callback: function() {
+                                                     location.reload(true);
+                                                 }
+                                             });
+                                         } else {
+                                             $.msgAlert({
+                                                 type: 'error',
+                                                 title: 'Usuwanie aktora',
+                                                 text: 'Aktor "' + obj.data.name + '" nie został usunięty poprawnie.',
+                                                 callback: function() {
+                                                      $('.gallery').find('li').removeClass('hidden');
+                                                      $('#sidebar').removeClass('hidden');
+                                                 }
+                                             });
+                                         }
+                                     },
+                                     error : function() {
+                                         $.msgAlert({
+                                             type: 'error',
+                                             title: 'Usuwanie aktora',
+                                             text: 'Aktor "' + obj.data.name + '" nie został usunięty poprawnie.',
+                                             callback: function() {
+                                                  $('.gallery').find('li').removeClass('hidden');
+                                                  $('#sidebar').removeClass('hidden');
+                                             }
+                                         });
+                                     }
+                                 })
+                             }
+                         }, {
+                             text: 'Nie',
+                             callback: function() {
+                                 $.msgAlert.close();
+                                 $('.gallery').find('li').removeClass('hidden');
+                                 $('#sidebar').removeClass('hidden');
+                             }
+                         }],
+                      });
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Usuwanie aktora',
+                          text: 'Niestety nie udało się połączyć z serwerem.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });
+                  }
+              },
+              error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Usuwanie aktora',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }
+          });
+      }
+      
+      function filter(id) {
+          var items = $('.gallery').find('li');
+          var filtered_items = $('.gallery').find('li[rel='+id+']');
+          if (id == 'all') { items.removeClass('hidden'); return false; }
+          items.addClass('hidden');
+          filtered_items.removeClass('hidden');
+      }
+      
+   </script>
+   
+{% endblock %}

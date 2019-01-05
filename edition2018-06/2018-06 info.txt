@@ -1,0 +1,20 @@
+1.5; czujnik RC; gabinetParter
+2.5; czujnik RC; Kominek
+3.5; czujnik RC; TV
+4.5; czujnik temp, Salon
+1.11; przekaznik M6ch
+2.11; przekaznik M6ch
+3.11; przekaznik M6ch
+4.11; przekaznik M6ch
+3.12; sciemniacz wykusz
+1.12
+4.12
+1.13
+
+
+19570418
+
+
+945278
+
+592257

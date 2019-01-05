@@ -1,0 +1,396 @@
+{% extends "base.html" %}
+
+{% block title %}Sensory | Elementy systemu{% endblock %}
+{% block subtitle %}Definiowanie sensorów{% endblock %}
+
+{% block head %}
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+   <div class="grid grid_18">
+       <ul class="gallery">
+          {% for sensor in sensors %}
+           <li class="sensor" rel="{{sensor.element_id}}">
+              <div class="img {{sensor.icon}}"></div>
+              <h3>{{sensor.name}}</h3>
+              <small><strong>{{sensor.type}}</strong><br/>{{sensor.group_room}} &raquo; {{sensor.room}}</small>
+              <div class="actions">
+                 <a class="btn tertiary small" href="#" onclick="editButtonPress({{sensor.id}});return false;">Edytuj</a>
+                 <a class="btn secondary small" href="#" onclick="deleteButtonPress({{sensor.id}});return false;">Usuń</a>
+              </div>
+           </li>
+          {% endfor %}
+       </ul>
+   </div>
+   
+   <div class="grid grid_6" id="sidebar">
+       <a href="#" onclick="newButtonPress(); return false;" class="btn xlarge primary" style="margin-bottom: 0.5em; width: 183px; margin-top:13px;">Dodaj sensor</a>
+   
+       <div class="box">
+          <h3>Filtruj sensory po typie</h3>
+          <ul>
+            <li><a href="#" onclick="filter('all'); return false;" class="btn_group" rel="all">Wszystkie</a></li>
+            {% for group in groups %}
+            <li><a href="#" onclick="filter({{group.id}}); return false;" class="btn_group" rel="{{group.id}}">{{group.name}}</a></li>
+            {% endfor %}
+          </ul>
+       </div>
+   </div>
+   
+   <div id="inpage_form_edit_sensor" style="display:none">
+
+         <form onsubmit="sendEditSensor(); return false;" method="post" class="form">    
+               
+               <input type="hidden" name="id" class="fld_edit_id" value=""/>
+               
+                <div class="field">
+                    <label for="fld_edit_name">Nazwa sensora</label>
+                    <div class="fields">
+                        <input type="text" name="name" value="" class="fld_edit_name" size="41" tabindex="1"/>        
+                    </div>
+                </div>
+                
+                
+                <div class="field">
+                    <label for="fld_edit_group">Rodzaj sensora</label>
+                    <div class="fields">
+
+                        <select name="element_id" class="fld_edit_group" tabindex="1">        
+                            {% for group in groups %}                            
+                            <option value="{{group.id}}">{{group.name}}</option>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>
+                                
+                <div class="field">
+                    <label for="fld_edit_room">Strefa</label>
+                    <div class="fields">
+
+                        <select name="room_id" class="fld_edit_room" tabindex="1">        
+                            {% for group in menu_rooms %}                            
+                            <optgroup label="{{group.name}}">
+                               {% for room in group.rooms %}
+                                  <option value="{{room.id}}">{{room.name}}</option>
+                               {% endfor %}
+                            </optgroup>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>
+
+
+                <div class="actions">
+                    <button type="submit" class="btn primary" tabindex="1">Zapisz</button>
+                </div>
+                
+            </form>
+   </div>
+
+   <div id="inpage_form_new_sensor" style="display:none">
+
+         <form onsubmit="sendNewSensor(); return false;" method="post" class="form">    
+                              
+                <div class="field">
+                    <label for="fld_new_name">Nazwa sensora</label>
+                    <div class="fields">
+                        <input type="text" name="name" value="" class="fld_new_name" size="41" tabindex="1" placeholder="Wpisz tu nazwę nowego sensora" />        
+                    </div>
+                </div> 
+                
+                <div class="field">
+                    <label for="fld_new_group">Rodzaj sensora</label>
+                    <div class="fields">
+
+                        <select name="element_id" class="fld_new_group" tabindex="1">        
+                            {% for group in groups %}                            
+                            <option value="{{group.id}}">{{group.name}}</option>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>
+                                
+                <div class="field">
+                    <label for="fld_new_room">Strefa</label>
+                    <div class="fields">
+
+                        <select name="room_id" class="fld_new_room" tabindex="1">        
+                            {% for group in menu_rooms %}                            
+                            <optgroup label="{{group.name}}">
+                               {% for room in group.rooms %}
+                                  <option value="{{room.id}}">{{room.name}}</option>
+                               {% endfor %}
+                            </optgroup>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>     
+                <div class="actions">
+                    <button type="submit" class="btn primary" tabindex="1">Zapisz</button>
+                </div>
+                
+            </form>
+   </div>
+
+   <script type="text/javascript">
+      function newButtonPress() {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.modal({
+             div: '#inpage_form_new_sensor',
+             title: 'Nowy sensor',
+             overlayClose: true,
+             afterClose: function() {
+                 $('.gallery').find('li').removeClass('hidden');
+                 $('#sidebar').removeClass('hidden');
+             }        
+          });
+          $('#modal .fld_new_name').placeholder();
+      }
+      function sendNewSensor() {
+          $.modal.close();
+          $.ajax({
+             url: './ajax/sensor/dodaj',
+             type: 'POST',
+             data: { 
+                 name: $('#modal .fld_new_name').val() , 
+                 element_id: $('#modal .fld_new_group').val(), 
+                 room_id: $('#modal .fld_new_room').val() 
+             },
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                          type: 'success',
+                          title: 'Nowy sensor',
+                          text: 'Sensor został poprawnie zapamiętany.',
+                          callback: function() {
+                              location.reload(true);
+                          }
+                      });                                       
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Nowy sensor',
+                          text: 'Niestety nie udało się dodać nowego aktora. Spróbuj póżniej.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Nowy sensor',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });                 
+             },
+          });
+          return false;
+      }
+   
+      function editButtonPress(id) {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.ajax ({
+            url: './ajax/sensor/'+id,
+            success: function(obj) {
+              if (!obj.error) {
+                  $.modal ({
+                     div: '#inpage_form_edit_sensor',
+                     title: 'Edytuj sensor',
+                     overlayClose: true,
+                     afterClose: function() {
+                         $('.gallery').find('li').removeClass('hidden');
+                         $('#sidebar').removeClass('hidden');
+                     }        
+                  });              
+                  $('#modal .fld_edit_id').val(obj.data.id);
+                  $('#modal .fld_edit_name').val(obj.data.name);
+                  $('#modal .fld_edit_group').val(''+obj.data.element_id);
+                  $('#modal .fld_edit_room').val(''+obj.data.room_id);
+              } else {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj sensor',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }             
+            },  
+            error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj sensor',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+            }
+          });
+      }
+      function sendEditSensor() {
+          $.modal.close();
+          $.ajax({
+             url: './ajax/sensor/zmien',
+             type: 'POST',
+             data: { 
+                 id: $('#modal .fld_edit_id').val() , 
+                 name: $('#modal .fld_edit_name').val() , 
+                 element_id: $('#modal .fld_edit_group').val(), 
+                 room_id: $('#modal .fld_edit_room').val() 
+             },
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                          type: 'success',
+                          title: 'Edytuj sensor',
+                          text: 'Sensor został poprawnie zmodyfikowany.',
+                          callback: function() {
+                              location.reload(true);
+                          }
+                      });                                       
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Edytuj sensor',
+                          text: 'Niestety nie udało się zmodyfikować aktora. Spróbuj póżniej.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj sensor',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });                 
+             },
+          });
+          return false;
+      }
+      
+      function deleteButtonPress(id) {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.ajax({
+              url: './ajax/sensor/'+id,
+              success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                         type: 'info',
+                         title: 'Usuwanie sensora',
+                         text: 'Czy napewno chcesz usunąć sensor "' + obj.data.name + '"?',
+                         buttons: [{
+                             text: 'Tak',
+                             callback: function() {
+                                 $.msgAlert.close();
+                                 $.ajax({
+                                     url: './ajax/sensor/usun/'+id,
+                                     success: function(obj2) {
+                                         if (!obj2.error) {
+                                             $.msgAlert({
+                                                 type: 'success',
+                                                 title: 'Usuwanie sensora',
+                                                 text: 'Sensor "' + obj.data.name + '" został usunięty poprawnie.',
+                                                 callback: function() {
+                                                     location.reload(true);
+                                                 }
+                                             });
+                                         } else {
+                                             $.msgAlert({
+                                                 type: 'error',
+                                                 title: 'Usuwanie sensora',
+                                                 text: 'Sensor "' + obj.data.name + '" nie został usunięty poprawnie.',
+                                                 callback: function() {
+                                                      $('.gallery').find('li').removeClass('hidden');
+                                                      $('#sidebar').removeClass('hidden');
+                                                 }
+                                             });
+                                         }
+                                     },
+                                     error : function() {
+                                         $.msgAlert({
+                                             type: 'error',
+                                             title: 'Usuwanie sensora',
+                                             text: 'Sensor "' + obj.data.name + '" nie został usunięty poprawnie.',
+                                             callback: function() {
+                                                  $('.gallery').find('li').removeClass('hidden');
+                                                  $('#sidebar').removeClass('hidden');
+                                             }
+                                         });
+                                     }
+                                 })
+                             }
+                         }, {
+                             text: 'Nie',
+                             callback: function() {
+                                 $.msgAlert.close();
+                                 $('.gallery').find('li').removeClass('hidden');
+                                 $('#sidebar').removeClass('hidden');
+                             }
+                         }],
+                      });
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Usuwanie aktora',
+                          text: 'Niestety nie udało się połączyć z serwerem.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });
+                  }
+              },
+              error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Usuwanie aktora',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }
+          });
+      }
+      
+      function filter(id) {
+          var items = $('.gallery').find('li');
+          var filtered_items = $('.gallery').find('li[rel='+id+']');
+          if (id == 'all') { items.removeClass('hidden'); return false; }
+          items.addClass('hidden');
+          filtered_items.removeClass('hidden');
+      }
+      
+   </script>
+   
+{% endblock %}

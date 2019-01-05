@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block subtitle %}Witaj w domu{% endblock %}
+
+{% block head %}
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+   <div class="grid grid_24">
+      <a id="btn_parter_phase" class="btn primary">Parter</a> <a id="btn_pietro_phase" class="btn secondary">I Piętro</a> <br/> &nbsp;
+      <div id="parter_phase">
+          <img src="./public/images/plan-parter.gif" id="parter" usemap="#parter" /> 
+          <map name="parter">
+            <area shape="rect" coords="289,762,449,868" href="./strefa/8" alt="Pomieszczenie gospodarcze" title="Pomieszczenie gospodarcze" class="shape" />
+            <area shape="rect" coords="457,761,586,867" href="./strefa/1" alt="Wiatrołap" title="Wiatrołap" class="shape" />
+            <area shape="rect" coords="289,608,452,754" href="./strefa/5" alt="Łazienka" title="Łazienka" class="shape" />
+            <area shape="rect" coords="290,329,520,526" href="./strefa/4" alt="Sypialnia" title="Sypialnia" class="shape" />
+            <area shape="rect" coords="454,529,583,754" href="./strefa/6" alt="Korytarz" title="Korytarz" class="shape" />
+            <area shape="rect" coords="66,326,271,872" href="./strefa/7" alt="Garaż" title="Garaż" class="shape" />
+            <area shape="rect" coords="593,687,807,869" href="./strefa/2" alt="Kuchnia" title="Kuchnia" class="shape" />
+            <area shape="rect" coords="290,532,455,601" href="./strefa/17" alt="Schody" title="Schody" class="shape" />
+            <area shape="poly" coords="538,529,538,332,806,330,808,517,844,558,845,627,813,663,767,670,585,669,584,531," href="./strefa/3" alt="Salon" title="Salon" class="shape" />
+            <area shape="rect" coords="42,895,833,976" href="./strefa/9" alt="Ogród przed domem" title="Ogród przed domem" class="shape" />
+            <area shape="rect" coords="355,31,833,304" href="./strefa/11" alt="Taras" title="Taras" class="shape" />
+            <area shape="poly" coords="42,300,42,2,831,1,832,31,354,32,353,301," href="./strefa/10" alt="Ogród za domem" title="Ogród za domem" class="shape" />
+          </map>
+          {% for item in parter %}
+           <a class="plan_icon {{item.icon}} {{item.status_descr}}" title="{{item.name}}" alt="{{item.name}}" style="left:{{item.left}}px; top:{{item.top}}px;" rel="{{item.id}}"></a>
+          {% endfor %}          
+      </div>                  
+      <div id="pietro_phase" style="display:none">
+          <img src="./public/images/plan-pietro.gif" id="pietro" usemap="#pietro" /> 
+          <map name="pietro">
+            <area shape="rect" coords="65,255,280,639" href="./strefa/18" alt="Schowek" title="Schowek" class="shape" />
+            <area shape="rect" coords="303,86,559,282" href="./strefa/12" alt="Mała sypialnia" title="Mała sypialnia" class="shape" />
+            <area shape="rect" coords="301,290,451,428" href="./strefa/17" alt="Schody" title="Schody" class="shape" />
+            <area shape="rect" coords="455,291,583,429" href="./strefa/16" alt="Korytarz" title="Korytarz" class="shape" />
+            <area shape="poly" coords="302,435,302,626,493,627,494,501,508,502,508,431," href="./strefa/15" alt="Łazienka" title="Łazienka" class="shape" />
+            <area shape="poly" coords="518,432,518,509,500,509,501,653,591,655,590,627,822,627,822,433," href="./strefa/14" alt="Sypialnia rodziców" title="Sypialnia rodziców" class="shape" />
+            <area shape="poly" coords="588,426,584,284,566,284,567,86,820,86,824,298,847,302,847,399,822,398,820,427," href="./strefa/13" alt="Duża sypialnia" title="Duża sypialnia" class="shape" />
+            <area shape="rect" coords="427,655,687,810" href="./strefa/19" alt="Balkon południowy" title="Balkon południowy" class="shape" />
+          </map>
+          {% for item in pietro %}
+           <a class="plan_icon {{item.icon}} {{item.status_descr}}" title="{{item.name}}" alt="{{item.name}}" style="left:{{item.left}}px; top:{{item.top}}px;" rel="{{item.id}}"></a>
+          {% endfor %}          
+      </div>                  
+   </div>
+   
+   <script type="text/javascript">
+      function JsInit() {
+         jQuery("#btn_parter_phase").click(function() {
+            jQuery('#parter_phase').show()
+            jQuery('#pietro_phase').hide();
+            jQuery('#btn_parter_phase').addClass('primary').removeClass('secondary');
+            jQuery('#btn_pietro_phase').removeClass('primary').addClass('secondary');
+         });
+         jQuery("#btn_pietro_phase").click(function() {
+            jQuery('#pietro_phase').show();
+            jQuery('#parter_phase').hide();
+            jQuery('#btn_pietro_phase').addClass('primary').removeClass('secondary');
+            jQuery('#btn_parter_phase').removeClass('primary').addClass('secondary');
+         });
+         jQuery('#parter').maphilight({
+           fillColor: 'FF0000'
+         });
+         jQuery('#pietro').maphilight({
+           fillColor: 'FF0000'
+         });
+      }
+   </script>
+{% endblock %}

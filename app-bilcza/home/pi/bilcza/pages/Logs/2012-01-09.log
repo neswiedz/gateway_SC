@@ -1,0 +1,36 @@
+[ERROR] 2012-01-09T16:20:51+00:00 - exception 'ErrorException' with message 'unserialize() [<a href='function.unserialize'>function.unserialize</a>]: Error at offset 0 of 826 bytes' in /www/pages/Application/settings.php:10
+Stack trace:
+#0 [internal function]: Slim::handleErrors(8, 'unserialize() [...', '/www/pages/Appl...', 10, Array)
+#1 /www/pages/Application/settings.php(10): unserialize('O:4:\"User\":1:...')
+#2 [internal function]: authorizeCheck()
+#3 /www/pages/Slim/Route.php(387): call_user_func('authorizeCheck')
+#4 /www/pages/Slim/Slim.php(1074): Slim_Route->dispatch()
+#5 /www/pages/index.php(42): Slim->run()
+#6 {main}
+[ERROR] 2012-01-09T16:20:54+00:00 - exception 'ErrorException' with message 'unserialize() [<a href='function.unserialize'>function.unserialize</a>]: Error at offset 0 of 826 bytes' in /www/pages/Application/settings.php:10
+Stack trace:
+#0 [internal function]: Slim::handleErrors(8, 'unserialize() [...', '/www/pages/Appl...', 10, Array)
+#1 /www/pages/Application/settings.php(10): unserialize('O:4:\"User\":1:...')
+#2 [internal function]: authorizeCheck()
+#3 /www/pages/Slim/Route.php(387): call_user_func('authorizeCheck')
+#4 /www/pages/Slim/Slim.php(1074): Slim_Route->dispatch()
+#5 /www/pages/index.php(42): Slim->run()
+#6 {main}
+[ERROR] 2012-01-09T16:20:59+00:00 - exception 'ErrorException' with message 'unserialize() [<a href='function.unserialize'>function.unserialize</a>]: Error at offset 0 of 826 bytes' in /www/pages/Application/controllers/default.php:90
+Stack trace:
+#0 [internal function]: Slim::handleErrors(8, 'unserialize() [...', '/www/pages/Appl...', 90, Array)
+#1 /www/pages/Application/controllers/default.php(90): unserialize('O:4:\"User\":1:...')
+#2 [internal function]: DefaultController->loginAction()
+#3 /www/pages/Slim/Route.php(392): call_user_func_array(Array, Array)
+#4 /www/pages/Slim/Slim.php(1074): Slim_Route->dispatch()
+#5 /www/pages/index.php(42): Slim->run()
+#6 {main}
+[ERROR] 2012-01-09T16:21:22+00:00 - exception 'ErrorException' with message 'unserialize() [<a href='function.unserialize'>function.unserialize</a>]: Error at offset 0 of 826 bytes' in /www/pages/Application/settings.php:10
+Stack trace:
+#0 [internal function]: Slim::handleErrors(8, 'unserialize() [...', '/www/pages/Appl...', 10, Array)
+#1 /www/pages/Application/settings.php(10): unserialize('O:4:\"User\":1:...')
+#2 [internal function]: authorizeCheck()
+#3 /www/pages/Slim/Route.php(387): call_user_func('authorizeCheck')
+#4 /www/pages/Slim/Slim.php(1074): Slim_Route->dispatch()
+#5 /www/pages/index.php(42): Slim->run()
+#6 {main}

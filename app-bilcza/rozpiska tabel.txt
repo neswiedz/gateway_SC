@@ -1,0 +1,20 @@
+tabele 
+	actor
+	actor-status
+	connection nie wiem czy potrzebne
+	device - nazwy, typ urzadzenia, adresy z magistrali
+	device_action
+	device_info
+	device_schedule
+	device_status
+	device_type - moduły
+	element - lampa, kinkiet, 
+	group_room
+	sensor
+	sensor-status
+	
+tabela actor:
+id, 
+nazwa, 
+element_id - typ elementu? przekaznik przycisk itp albo numer modulu w rozdzielni
+room_id

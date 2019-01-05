@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+ 
+<head> 
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+    <title>{% block title %}{% endblock %} | Domomatik Panel Zarządzania</title> 
+    <base href="{{URL_BASE}}" />    
+    <link rel="shortcut icon" href="./public/images/favicon.ico" type="image/x-icon" />
+    {% block head %}
+    <link rel="stylesheet" href="./public/css/reset.css" type="text/css" media="screen" title="no title" />
+    <link rel="stylesheet" href="./public/css/layout.css" type="text/css" media="screen" title="no title" />
+    <link rel="stylesheet" href="./public/css/grid.css" type="text/css" media="screen" title="no title" />
+    <link rel="stylesheet" href="./public/css/forms.css" type="text/css" media="screen" title="no title" />
+    <link rel="stylesheet" href="./public/css/text.css" type="text/css" media="screen" title="no title" />
+    <link rel="stylesheet" href="./public/css/buttons.css" type="text/css" media="screen" title="no title" />
+    <link rel="stylesheet" href="./public/css/nav.css" type="text/css" media="screen" title="no title" />
+    <link rel="stylesheet" href="./public/css/custom.css" type="text/css" media="screen" title="no title" />
+    <link rel="stylesheet" href="./public/css/x.modal.css" type="text/css" media="screen" title="no title" />
+    <link rel="stylesheet" href="./public/css/x.msgAlert.css" type="text/css" media="screen" title="no title" />
+    <link rel="stylesheet" href="./public/css/x.msgBar.css" type="text/css" media="screen" title="no title" />
+    {% endblock %}
+</head> 
+ 
+<body> 
+
+<div id="wrapper">
+    
+    <div id="header">        
+        <div class="container">
+        
+            <div class="grid grid_24">
+                
+                <ul>                            
+                    <li class="nav">                        
+                        <a href="./" class="item icon"><span>Strona główna</span></a>                    
+                    </li>    
+                    
+                    <li class="bar"></li>
+
+                    {% if menu_rooms %}
+                        <li class="nav dropdown">                        
+                            <a href="./strefy" class="item">Strefy</a>    
+                            <div class="menu">  
+                                <ul>
+                                    <li><a href="./strefy">Wszystkie</a></li>
+                                </ul>                         
+                                {% for group in menu_rooms %}
+                                {% if group.rooms %}
+                                <h3>{{group.name}}</h3>
+                                <ul>
+                                   {% for room in group.rooms %}
+                                   <li><a href="./strefa/{{room.id}}">{{room.name}}</a></li>
+                                   {% endfor %}
+                                </ul>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            
+                        </li>
+                    {% else %}
+                        <li class="nav">                        
+                            <a href="./strefy" class="item">Strefy</a>    
+                        </li>
+                    {% endif %}
+                    
+                    <li class="nav">                        
+                        <a href="./oswietlenie" class="item">Oświetlenie</a>                      
+                    </li>
+
+<!--
+                    <li class="nav">                        
+                        <a href="./atmosfera" class="item">Atmosfera</a>                      
+                    </li>
+-->
+
+                    <li class="nav">                        
+                        <a href="./wyposazenie" class="item">Wyposażenie</a>                      
+                    </li>
+
+<!-- 
+                    <li class="nav">                        
+                        <a href="./alarm" class="item">Alarm</a>                      
+                    </li>
+-->
+
+                    <li class="nav">                        
+                        <a href="javascript:;" class="item">Akcje</a>                                
+                    </li>
+                                                            
+                    <li class="nav profile dropdown right">                        
+                        <a href="javascript:;" class="item"><img src="./public/images/layout/nav_profile_image.png" alt="Profile Image" /></a>                           
+                        <div class="menu">                            
+                            <h3>Support</h3>
+                            
+                            <ul>
+<!--                                <li><a href="http://www.domomatik.pl/support/kb">Baza wiedzy</a></li> -->
+                                <li><a href="http://www.domomatik.pl/support/manual">Instrukcja obsługi</a></li>
+<!--                                <li><a href="http://www.domomatik.pl/support/aktualizacja-oprogramowania">Aktualizacja oprogramowania</a></li> -->
+                            </ul>                    
+
+                            <hr />
+                            
+                            <ul>
+                                <li><a href="./wylogowanie">Wyloguj</a></li>
+                            </ul>
+                            
+                        </div>                
+                    </li>
+
+                    <li class="nav dropdown right">                        
+                        <a href="javascript:;" class="item icon cog"><span>Ustawienia</span></a>        
+                        
+                        <div class="menu">    
+                            <h3>Elementy systemu</h3>
+                            
+                            <ul>
+                                <li><a href="./ustawienia/strefy">Strefy</a></li>
+                                <li><a href="./ustawienia/aktorzy">Aktorzy</a></li>
+                                <li><a href="./ustawienia/sensory">Sensory</a></li>
+                                <li><a href="./ustawienia/moduly">Moduły</a></li>
+                            </ul>
+
+                            <h3>System</h3>
+                            
+                            <ul>
+                                <li><a href="./ustawienia">Połączenia</a></li>
+<!--                                <li><a href="./ustawienia/konfiguracja">Konfiguracja</a></li>
+                                <li><a href="./ustawienia/status">Status</a></li> -->
+                            </ul>
+
+                            <h3>Akcje</h3>
+                            
+                            <ul>
+                                <li><a href="./ustawienia/akcje">Konfiguracja</a></li>
+                            </ul>
+
+                        </div>
+                    </li>
+                                        
+                    <li class="bar right"></li>            
+                </ul>    
+            </div> <!-- .grid -->
+        </div> <!-- .container -->
+    </div> <!-- #header -->
+    
+    
+    <div id="sub-header">        
+        <div class="container">            
+            <div class="grid grid_24">
+                <h2>{% block subtitle %}{% endblock %}</h2>                
+            </div> <!-- .grid -->            
+        </div> <!-- .container -->
+    </div> <!-- #sub-header -->
+    
+
+    <div id="content">                
+        <div class="container">
+        
+           {% block content %}{% endblock %}          
+        
+        </div> <!-- .container -->
+
+    </div> <!-- #content -->
+    
+
+    <div id="footer" class="cf">        
+        <div class="container">
+           
+            <div id="copyright" class="grid grid_24">
+                <div class="grid grid_12 left">
+                    <a href="./" ><img src="./public/images/logo.png" alt="Domomatik Panel Zarządzania" title="Domomatik Panel Zarządzania" /></a>
+                </div> <!-- .grid -->
+                
+                <div class="grid grid_12 right">
+                    Copyright &copy; 2011 <a href='http://www.sotarsoft.pl/'>Sotarsoft</a>, all rights reserved.<br/>
+                    <a href="./support/aktualizacja">Wersja 1.0.0</a>
+                </div> <!-- .grid -->            
+                
+            </div> <!-- .grid -->
+            
+        </div> <!-- .container -->        
+    </div> <!-- #footer -->
+
+
+</div> <!-- #wrapper -->
+
+
+<script src="./public/js/jquery/jquery-1.5.2.min.js"></script>
+<script src="./public/js/jquery/jquery-ui-1.8.13.custom.min.js"></script>
+<script src="./public/js/jquery/jquery.placeholder.min.js"></script>
+<script src="./public/js/jquery/jquery.validate.min.js"></script>
+<script src="./public/js/jquery/jquery.dataTables.min.js"></script>
+<script src="./public/js/jquery/jquery.timer.js"></script>
+<script src="./public/js/jquery/jquery.tooltip.min.js"></script>
+<script src="./public/js/jquery/modal.js"></script>
+<script src="./public/js/jquery/msgBar.js"></script>
+<script src="./public/js/jquery/msgAlert.js"></script>
+<script src="./public/js/jquery/jquery.maphilight.min.js"></script>
+<script src="./public/js/nav.js"></script>
+<script src="./public/js/app.js"></script>
+<script type="text/javascript">
+    $(function() {
+        App.init();
+    });
+</script>
+
+</body> 
+ 
+</html>

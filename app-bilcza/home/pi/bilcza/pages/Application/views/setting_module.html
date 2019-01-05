@@ -1,0 +1,553 @@
+{% extends "base.html" %}
+
+{% block title %}Moduły | Elementy systemu{% endblock %}
+{% block subtitle %}Definiowanie modułów{% endblock %}
+
+{% block head %}
+  {{ parent() }}
+{% endblock %}
+
+{% block content %}
+   <div class="grid grid_18">
+       <ul class="gallery">
+          {% for module in modules %}
+           <li class="module" rel="{{module.device_type_id}}">
+              <div class="img {{module.icon}}"></div>
+              <h3>{{module.description}}</h3>
+              <small>{{module.device_type_name}}<BR>ID: {{module.group_id}}.{{module.item_id}}</small>
+              <div class="actions">
+                 <a class="btn tertiary small" href="#" onclick="infoButtonPress({{module.id}});return false;">Info</a>
+                 <a class="btn tertiary small" href="#" onclick="editButtonPress({{module.id}});return false;">Edytuj</a>
+                 <a class="btn secondary small" href="#" onclick="deleteButtonPress({{module.id}});return false;">Usuń</a>
+              </div>
+           </li>
+          {% endfor %}
+       </ul>
+   </div>
+   
+   <div class="grid grid_6" id="sidebar">
+       <a href="#" onclick="newButtonPress(); return false;" class="btn xlarge primary" style="margin-bottom: 0.5em; width: 183px; margin-top:13px;">Dodaj moduł</a>
+       <a href="#" onclick="seekButtonPress(); return false;" class="btn xlarge secondary" style="margin-bottom: 0.5em; width: 183px;">Znajdź moduły</a>
+   
+       <div class="box">
+          <h3>Filtruj moduły po typie</h3>
+          <ul>
+            <li><a href="#" onclick="filter('all'); return false;" class="btn_group" rel="all">Wszystkie</a></li>
+            {% for group in groups %}
+            <li><a href="#" onclick="filter({{group.id}}); return false;" class="btn_group" rel="{{group.id}}">{{group.name}}</a></li>
+            {% endfor %}
+          </ul>
+       </div>
+   </div>
+   
+   <div id="inpage_form_edit_module" style="display:none">
+
+         <form onsubmit="sendEditModule(); return false;" method="post" class="form">    
+               
+               <input type="hidden" name="id" class="fld_edit_id" value=""/>
+               
+                <div class="field">
+                    <label for="fld_edit_name">Nazwa modułu</label>
+                    <div class="fields">
+                        <input type="text" name="name" value="" class="fld_edit_name" size="41" tabindex="1"/>        
+                    </div>
+                </div>
+                
+                
+                <div class="field">
+                    <label for="fld_edit_group">Rodzaj modułu</label>
+                    <div class="fields">
+
+                        <select name="element_id" class="fld_edit_type" tabindex="1">        
+                            {% for group in groups %}                            
+                            <option value="{{group.id}}">{{group.name}}</option>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="field">
+                     <label for="fld_edit_address">Adres modułu</label>
+                     <div class="fields">
+                     
+                        <select name="group_id" class="fld_edit_group" tabindex="1">        
+                            {% for group in range(1, 255) %}                            
+                            <option value="{{group}}">{{group}}</option>
+                            {% endfor %}
+                            
+                        </select>
+
+                        <select name="item_id" class="fld_edit_item" tabindex="1">        
+                            {% for group in range(1, 255) %}                            
+                            <option value="{{group}}">{{group}}</option>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>                                     
+
+                <div class="actions">
+                    <button type="submit" class="btn primary" tabindex="1">Zapisz</button>
+                </div>
+                
+            </form>
+   </div>
+
+   <div id="inpage_form_new_module" style="display:none">
+
+         <form onsubmit="sendNewModule(); return false;" method="post" class="form">    
+                              
+                <div class="field">
+                    <label for="fld_new_name">Nazwa modułu</label>
+                    <div class="fields">
+                        <input type="text" name="name" value="" class="fld_new_name" size="41" tabindex="1" placeholder="Wpisz tu nazwę nowego modułu" />        
+                    </div>
+                </div> 
+                
+                <div class="field">
+                    <label for="fld_new_group">Rodzaj modułu</label>
+                    <div class="fields">
+
+                        <select name="element_id" class="fld_new_type" tabindex="1">        
+                            {% for group in groups %}                            
+                            <option value="{{group.id}}">{{group.name}}</option>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="field">
+                     <label for="fld_new_address">Adres modułu</label>
+                     <div class="fields">
+                     
+                        <select name="group_id" class="fld_new_group" tabindex="1">        
+                            {% for group in range(1, 255) %}                            
+                            <option value="{{group}}">{{group}}</option>
+                            {% endfor %}
+                            
+                        </select>
+
+                        <select name="item_id" class="fld_new_item" tabindex="1">        
+                            {% for group in range(1, 255) %}                            
+                            <option value="{{group}}">{{group}}</option>
+                            {% endfor %}
+                            
+                        </select>
+
+                    </div>
+                </div>                
+                                
+                <div class="actions">
+                    <button type="submit" class="btn primary" tabindex="1">Zapisz</button>
+                </div>
+                
+            </form>
+   </div>
+
+   <div id="inpage_info_module" style="display:none">
+      <div class="form">
+          <div class="field">
+             <label>Nazwa modułu</label><div id="mod_name" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>ID</label><div id="mod_id" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Typ modułu</label><div id="mod_type" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Typ CAN</label><div id="mod_can" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Wersja firmware</label><div id="mod_firmware" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Wersja bootloadera</label><div id="mod_bootloader" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Wersja hardware</label><div id="mod_univ" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Identyfikator procesora</label><div id="mod_proc" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Napięcie zasilania</label><div id="mod_voltage" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div class="field">
+             <label>Opis serwisowy</label><div id="mod_description" class="fields" style="font-weight: bold"></div>
+          </div>
+          <div style="margin-left: 45px;" id="mod_item">
+             <a href="#" onclick="reloadButtonPress(); return false;" class="btn primary">Odśwież</a>
+             <a href="#" onclick="connectionButtonPress(); return false;"class="btn secondary">Połączenia</a>
+             <a href="#" onclick="configButtonPress(); return false;" class="btn secondary">Konfiguruj</a>
+             <a href="#" onclick="firmwareButtonPress(); return false;" class="btn tertiary">Zmień firmware</a>
+          </div>
+      </div>
+   </div>
+   
+   <script type="text/javascript">
+      function infoButtonPress(id) {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.ajax ({
+            url: './ajax/modul/'+id,
+            success: function(obj) {
+              if (!obj.error) {
+                  $.modal ({
+                     div: '#inpage_info_module',
+                     title: 'Informacje o module',
+                     overlayClose: true,
+                     afterClose: function() {
+                         $('.gallery').find('li').removeClass('hidden');
+                         $('#sidebar').removeClass('hidden');
+                     }        
+                  });              
+                  $('#modal #mod_name').html(obj.data.description); 
+                  $('#modal #mod_id').html(obj.data.group_id+"."+obj.data.item_id); 
+                  $('#modal #mod_type').html(obj.data.device_type); 
+                  $('#modal #mod_can').html(obj.data.TYPE); 
+                  $('#modal #mod_firmware').html(obj.data.FIRMWARE); 
+                  $('#modal #mod_bootloader').html(obj.data.BOOTLOADER); 
+                  $('#modal #mod_univ').html(obj.data.UNIV_VERSION); 
+                  $('#modal #mod_proc').html(obj.data.PROCESSOR_ID.toUpperCase()+"h"); 
+                  $('#modal #mod_voltage').html(Math.round(obj.data.VOLTAGE*100)/100+" V"); 
+                  $('#modal #mod_description').html(obj.data.DESCRIPTION); 
+                  $('#modal #mod_item').attr('rel', obj.data.id);
+              } else {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Informacje o module',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }             
+            },  
+            error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Informacje o module',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+            }
+          });
+      }
+      function reloadButtonPress() {
+          id = $('#modal #mod_item').attr('rel');
+          $.ajax({
+             url: './ajax/modul/odswiez/'+id,
+             type: 'GET',
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.modal.close();
+                      infoButtonPress(id);
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Odświeżanie modułu',
+                          text: 'Niestety nie udało się odświeżyć informacji o module. Spróbuj póżniej.',
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Odświeżanie modułu',
+                      text: 'Niestety nie udało się odświeżyć informacji o module. Błąd połączenia z serwerem. Spróbuj później.',
+                  });                 
+             },
+          });
+      }
+      function connectionButtonPress() {
+          id = $('#modal #mod_item').attr('rel');
+          document.location = "./ustawienia/"+id;
+      }
+      function firmwareButtonPress() {
+          id = $('#modal #mod_item').attr('rel');
+          document.location = "./ustawienia/aktualizacja/"+id;
+      }
+      function configButtonPress() {
+          id = $('#modal #mod_item').attr('rel');
+          document.location = "./ustawienia/konfiguracja/"+id;
+      }
+
+      function newButtonPress() {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.modal({
+             div: '#inpage_form_new_module',
+             title: 'Nowy moduł',
+             overlayClose: true,
+             afterClose: function() {
+                 $('.gallery').find('li').removeClass('hidden');
+                 $('#sidebar').removeClass('hidden');
+             }        
+          });
+          $('#modal .fld_new_name').placeholder();
+      }
+      function sendNewModule() {
+          $.modal.close();
+          $.ajax({
+             url: './ajax/modul/dodaj',
+             type: 'POST',
+             data: { 
+                 name: $('#modal .fld_new_name').val() , 
+                 device_type_id: $('#modal .fld_new_type').val(), 
+                 group_id: $('#modal .fld_new_group').val(), 
+                 item_id: $('#modal .fld_new_item').val() 
+             },
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                          type: 'success',
+                          title: 'Nowy moduł',
+                          text: 'Moduł został poprawnie zapamiętany.',
+                          callback: function() {
+                              location.reload(true);
+                          }
+                      });                                       
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Nowy moduł',
+                          text: 'Niestety nie udało się dodać nowego modułu. Spróbuj póżniej.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Nowy moduł',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });                 
+             },
+          });
+          return false;
+      }
+   
+      function editButtonPress(id) {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.ajax ({
+            url: './ajax/modul/'+id,
+            success: function(obj) {
+              if (!obj.error) {
+                  $.modal ({
+                     div: '#inpage_form_edit_module',
+                     title: 'Edytuj moduł',
+                     overlayClose: true,
+                     afterClose: function() {
+                         $('.gallery').find('li').removeClass('hidden');
+                         $('#sidebar').removeClass('hidden');
+                     }        
+                  });              
+                  $('#modal .fld_edit_id').val(obj.data.id);
+                  $('#modal .fld_edit_name').val(obj.data.description);
+                  $('#modal .fld_edit_type').val(''+obj.data.device_type_id);
+                  $('#modal .fld_edit_group').val(''+obj.data.group_id);
+                  $('#modal .fld_edit_item').val(''+obj.data.item_id);
+              } else {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj moduł',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }             
+            },  
+            error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj moduł',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+            }
+          });
+      }
+      function sendEditModule() {
+          $.modal.close();
+          $.ajax({
+             url: './ajax/modul/zmien',
+             type: 'POST',
+             data: { 
+                 id: $('#modal .fld_edit_id').val() , 
+                 name: $('#modal .fld_edit_name').val() , 
+                 device_type_id: $('#modal .fld_edit_type').val(), 
+                 group_id: $('#modal .fld_edit_group').val(), 
+                 item_id: $('#modal .fld_edit_item').val() 
+             },
+             success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                          type: 'success',
+                          title: 'Edytuj moduł',
+                          text: 'Moduł został poprawnie zmodyfikowany.',
+                          callback: function() {
+                              location.reload(true);
+                          }
+                      });                                       
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Edytuj moduł',
+                          text: 'Niestety nie udało się zmodyfikować moduł. Spróbuj póżniej.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });                 
+                  }
+             },
+             error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Edytuj moduł',
+                      text: 'Niestety nie udało się połączyć z serwerem.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });                 
+             },
+          });
+          return false;
+      }
+      
+      function deleteButtonPress(id) {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.ajax({
+              url: './ajax/modul/'+id,
+              success: function(obj) {
+                  if (!obj.error) {
+                      $.msgAlert({
+                         type: 'info',
+                         title: 'Usuwanie modułu',
+                         text: 'Czy napewno chcesz usunąć moduł "' + obj.data.description + '"?',
+                         buttons: [{
+                             text: 'Tak',
+                             callback: function() {
+                                 $.msgAlert.close();
+                                 $.ajax({
+                                     url: './ajax/modul/usun/'+id,
+                                     success: function(obj2) {
+                                         if (!obj2.error) {
+                                             $.msgAlert({
+                                                 type: 'success',
+                                                 title: 'Usuwanie modułu',
+                                                 text: 'Moduł "' + obj.data.description + '" został usunięty poprawnie.',
+                                                 callback: function() {
+                                                     location.reload(true);
+                                                 }
+                                             });
+                                         } else {
+                                             $.msgAlert({
+                                                 type: 'error',
+                                                 title: 'Usuwanie modułu',
+                                                 text: 'Moduł "' + obj.data.description + '" nie został usunięty poprawnie.',
+                                                 callback: function() {
+                                                      $('.gallery').find('li').removeClass('hidden');
+                                                      $('#sidebar').removeClass('hidden');
+                                                 }
+                                             });
+                                         }
+                                     },
+                                     error : function() {
+                                         $.msgAlert({
+                                             type: 'error',
+                                             title: 'Usuwanie modułu',
+                                             text: 'Moduł "' + obj.data.description + '" nie został usunięty poprawnie.',
+                                             callback: function() {
+                                                  $('.gallery').find('li').removeClass('hidden');
+                                                  $('#sidebar').removeClass('hidden');
+                                             }
+                                         });
+                                     }
+                                 })
+                             }
+                         }, {
+                             text: 'Nie',
+                             callback: function() {
+                                 $.msgAlert.close();
+                                 $('.gallery').find('li').removeClass('hidden');
+                                 $('#sidebar').removeClass('hidden');
+                             }
+                         }],
+                      });
+                  } else {
+                      $.msgAlert({
+                          type: 'error',
+                          title: 'Usuwanie modułu',
+                          text: 'Niestety nie udało się połączyć z serwerem.',
+                          callback: function() {
+                                $('.gallery').find('li').removeClass('hidden');
+                                $('#sidebar').removeClass('hidden');
+                          }
+                      });
+                  }
+              },
+              error: function() {
+                  $.msgAlert({
+                      type: 'error',
+                      title: 'Usuwanie modułu',
+                      text: 'Niestety nie udało się połączyć z serwerem. Proszę spróbować póżniej.',
+                      callback: function() {
+                            $('.gallery').find('li').removeClass('hidden');
+                            $('#sidebar').removeClass('hidden');
+                      }
+                  });
+              }
+          });
+      }
+
+      function seekButtonPress() {
+          $('.gallery').find('li').addClass('hidden');
+          $('#sidebar').addClass('hidden');
+          $.modal({
+             ajax: './ajax/modul/szukaj',
+             title: 'Wyszukiwanie modułów',
+             overlayClose: true,
+             afterClose: function() {
+                 $('.gallery').find('li').removeClass('hidden');
+                 $('#sidebar').removeClass('hidden');
+             }        
+          });
+      }
+      
+      function filter(id) {
+          var items = $('.gallery').find('li');
+          var filtered_items = $('.gallery').find('li[rel='+id+']');
+          if (id == 'all') { items.removeClass('hidden'); return false; }
+          items.addClass('hidden');
+          filtered_items.removeClass('hidden');
+      }
+      
+   </script>
+   
+{% endblock %}

@@ -1,0 +1,2081 @@
+/* =Grid Container Size
+----------------------------------------------- */
+.container { width: 960px; }
+
+/* =Defaults
+----------------------------------------------- */
+hr { border-color: #666; }
+
+a { color: #FFD742; /*#F36454; */ }
+
+.avatar { border-color: #666; }
+
+.box {
+	background-color: #444;
+}
+
+body { background-color: #333; }
+
+/* =Wrapper
+----------------------------------------------- */
+#wrapper {
+	color: #FFF;
+}
+
+
+
+
+/* =Header & Sub Header
+----------------------------------------------- */
+#header {
+	background: #333;
+	border-bottom: none;
+    height: 55px;
+}
+
+#header,
+#sub-header { 
+	background:-moz-linear-gradient(top, #AAAAAA 0%, #666666 2%, #444444 100%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-stop (0%, #AAAAAA), color-stop(2%,#666666), color-stop(100%,#444444)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top, #AAAAAA 0%, #666666 2%, #444444 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #AAAAAA 0%, #666666 2%, #444444 100%); /* Opera11.10+ */
+	background:-ms-linear-gradient(top, #AAAAAA 0%, #666666 2%, #444444 100%); /* IE10+ */
+	background:linear-gradient(top, #AAAAAA 0%, #666666 2%, #444444 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#444444');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#444444')";
+
+	color: #FFF;
+	border-top-color: #191919;
+	border-bottom-color: #191919;
+}
+
+
+
+
+
+#sub-header .tab { 
+
+	background:-moz-linear-gradient(top, #999999 0%, #777777 100%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#999999), color-stop(100%,#777777)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top, #999999 0%,#777777 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #999999 0%,#777777 100%); /* Opera11.10+ */
+	background:-ms-linear-gradient(top, #999999 0%,#777777 100%); /* IE10+ */
+	background:linear-gradient(top, #999999 0%,#777777 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999', endColorstr='#777777');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999', endColorstr='#777777')";
+	
+	color: #FFF;
+	
+	border: 1px solid #444;
+
+	-webkit-box-shadow: 1px 1px 2px rgba(0,0,0,.25); 
+	-moz-box-shadow: 1px 1px 2px rgba(0,0,0,.25); 
+	box-shadow: 1px 1px 2px rgba(0,0,0,.25); 
+}
+
+#sub-header .tab:hover {
+	background:-moz-linear-gradient(top, #777777 0%, #555555 100%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#777777), color-stop(100%,#555555)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top, #777777 0%,#555555 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #777777 0%,#555555 100%); /* Opera11.10+ */
+	background:-ms-linear-gradient(top, #777777 0%,#555555 100%); /* IE10+ */
+	background:linear-gradient(top, #777777 0%,#555555 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#777777', endColorstr='#555555');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#777777', endColorstr='#555555')";
+
+	color: #FFF;
+}
+
+
+
+
+
+/* =Nav
+----------------------------------------------- */
+.item
+, .menu a:hover {
+	background: #555 url(../../images/btn-35.png) repeat-x 0 0;
+	border-color: #333;
+}
+
+	.item:hover
+	, .hovered .item { background-color: #444; }
+	
+	
+#header .nav .notify { background-color: #F24B39; }	
+	
+	
+	
+
+
+
+/* =Menu
+----------------------------------------------- */
+.menu h3 { color: #EF2E18; }
+
+
+
+
+
+
+
+
+/* =Default Gradient
+----------------------------------------------- */
+#sub-header
+, .paging_full_numbers span.paginate_button
+, .section_header
+, ul.stepy-titles li
+, h2.accordion_panel
+, ul.tabs li
+, .report {
+	background:-moz-linear-gradient(top, #999999 0%, #666666 2%, #444444 100%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-step(0%, #999999), color-stop(2%,#666666), color-stop(100%,#444444)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top, #999999 0%, #666666 2%,#444444 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #999999 0%, #666666 2%,#444444 100%); /* Opera11.10+ */
+	background:-ms-linear-gradient(top, #999999 0%, #666666 2%,#444444 100%); /* IE10+ */
+	background:linear-gradient(top, #999999 0%, #666666 2%,#444444 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#444444');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#444444')";
+	
+	border: 1px solid #191919;
+	
+}
+
+
+/* =Active Gradient
+----------------------------------------------- */
+.paging_full_numbers span.paginate_active
+, ul.stepy-titles li.current-step
+, h2.accordion_panel.active
+, .fc-event-inner
+, .tabs-side .current a
+, .report.active
+, #inbox-tabs .current
+, #inbox-tabs .current:hover
+{
+	background:-moz-linear-gradient(top, #FAB5AD 0%, #F47668 2%, #CB210E 100%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-stop (0%, #FAB5AD), color-stop(2%,#F47668), color-stop(100%,#CB210E)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top, #FAB5AD 0%, #F47668 2%, #CB210E 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #FAB5AD 0%, #F47668 2%, #CB210E 100%); /* Opera11.10+ */
+	background:-ms-linear-gradient(top, #FAB5AD 0%, #F47668 2%, #CB210E 100%); /* IE10+ */
+	background:linear-gradient(top, #FAB5AD 0%, #F47668 2%, #CB210E 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F47668', endColorstr='#CB210E');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#F47668', endColorstr='#CB210E')";
+		
+	border-color: #BF1F0D;	
+}
+
+
+
+#sub-header { border-top-color: #000; }
+
+.section_header
+, .report { border-color: #CCC; }
+
+
+
+
+/* =Gallery
+----------------------------------------------- */
+ul.gallery { padding: 0; margin: 0; }
+
+
+    .gallery .btn { font-size: 10px; }
+
+.gallery li 
+{
+    padding: 6px;
+    margin: 0;
+    background: 0;
+    width: 195px;
+    height: 100px;
+
+    list-style-type: none;    
+    float: left;
+
+
+    position: relative;
+    margin: 13px 14px 10px 7px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 3px rgba(0,0,0,.20);
+    -moz-box-shadow: 0 0 3px rgba(0,0,0,.20);
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,.20);
+
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    }
+
+
+.gallery li:hover { border-color: #888; }
+
+.gallery li.hidden .actions { display: none; }
+
+.hidden { 
+    opacity: .15; 
+    filter: alpha(opacity=15); 
+}    
+
+.gallery .img {
+    display: block;
+    float: left;
+    width: 48px;
+    height: 48px;
+}
+
+.gallery .room h3 {
+    margin-bottom: 0; 
+    margin-left: 68px;
+}
+.gallery .room small {
+    margin-left: 68px;
+    display: block;
+}
+.gallery .room .actions {
+    margin-left: 68px;
+    margin-top: 0.7em;
+}
+
+.gallery .actor h3, .gallery .sensor h3, .gallery .module h3 {
+    margin-bottom: 4px; 
+    margin-left: 52px;
+}
+.gallery .actor small, .gallery .sensor small, .gallery .module small   {
+    margin-left: 52px;
+    line-height: 16px;
+    display: block;
+}
+
+.gallery .actor .actions, .gallery .sensor .actions, .gallery .module .actions  {
+    margin-left: 52px;
+    margin-top: 0.7em;
+}
+
+
+.gallery .img.room_balkon {
+    background: url('../images/rooms/64/balkon.png') no-repeat;
+    width: 64px;
+    height: 64px;
+}
+.gallery .img.room_dzieciecy {
+    background: url('../images/rooms/64/dzieciecy.png') no-repeat;
+    width: 64px;
+    height: 64px;
+}
+.gallery .img.room_gabinet {
+    background: url('../images/rooms/64/gabinet.png') no-repeat;
+    width: 64px;
+    height: 64px;
+}
+.gallery .img.room_garaz {
+    background: url('../images/rooms/64/garaz.png') no-repeat;
+    width: 64px;
+    height: 64px;
+}
+.gallery .img.room_korytarz {
+    background: url('../images/rooms/64/korytarz.png') no-repeat;
+    width: 64px;
+    height: 64px;
+}
+.gallery .img.room_kuchnia {
+    background: url('../images/rooms/64/kuchnia.png') no-repeat;
+    width: 64px;
+    height: 64px;
+}
+.gallery .img.room_lazienka {
+    background: url('../images/rooms/64/lazienka.png') no-repeat;
+    width: 64px;
+    height: 64px;
+}
+.gallery .img.room_ogrod {
+    background: url('../images/rooms/64/ogrod.png') no-repeat;
+    width: 64px;
+    height: 64px;
+}
+.gallery .img.room_salon {
+    background: url('../images/rooms/64/salon.png') no-repeat;
+    width: 64px;
+    height: 64px;
+}
+.gallery .img.room_sypialnia {
+    background: url('../images/rooms/64/sypialnia.png') no-repeat;
+    width: 64px;
+    height: 64px;
+}  
+.gallery .img.room_inne {
+    background: url('../images/rooms/64/inne.png') no-repeat;
+    width: 64px;
+    height: 64px;
+}
+
+.gallery .img.actor_lamp_suf_1{
+    background: url('../images/actors/48/lampa.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_lamp_suf_2{
+    background: url('../images/actors/48/lampy.png') no-repeat;
+    background-position: -144px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_lamp_kin_1{
+    background: url('../images/actors/48/kinkiet.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_lamp_kin_2{
+    background: url('../images/actors/48/kinkiety.png') no-repeat;
+    background-position: -144px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_lamp_sto_1{
+    background: url('../images/actors/48/lampa_stojaca.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_lamp_sto_2{
+    background: url('../images/actors/48/lampy_stojace.png') no-repeat;
+    background-position: -144px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_lamp_rgb{
+    background: url('../images/actors/48/lampa_rgb.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_lamp_r{
+    background: url('../images/actors/48/lampa_r.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_lamp_g{
+    background: url('../images/actors/48/lampa_g.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_lamp_b{
+    background: url('../images/actors/48/lampa_b.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_kontakt_1{
+    background: url('../images/actors/48/kontakt.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_kontakt_2{
+    background: url('../images/actors/48/kontakty.png') no-repeat;
+    background-position: -144px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_telewizor{
+    background: url('../images/actors/48/telewizor.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_video{
+    background: url('../images/actors/48/video.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_radio{
+    background: url('../images/actors/48/radio.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_sprzet_hifi{
+    background: url('../images/actors/48/audiovideo.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_kamera{
+    background: url('../images/actors/48/kamera.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_wentylator{
+    background: url('../images/actors/48/wentylator.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_klimatyzator{
+    background: url('../images/actors/48/klima.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_kaloryfer{
+    background: url('../images/actors/48/kaloryfer.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_piec{
+    background: url('../images/actors/48/piec.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_zawor{
+    background: url('../images/actors/48/zawor.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_pompa{
+    background: url('../images/actors/48/pompa.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_markiza{
+    background: url('../images/actors/48/markiza.png') no-repeat;
+    background-position: -96px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_rolety{
+    background: url('../images/actors/48/roleta.png') no-repeat;
+    background-position: -96px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_zaluzje{
+    background: url('../images/actors/48/zaluzje.png') no-repeat;
+    background-position: -96px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_zraszacz{
+    background: url('../images/actors/48/zraszacz.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_brama_garazowa{
+    background: url('../images/actors/48/brama_garazowa.png') no-repeat;
+    background-position: -96px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_brama_skrzydlowa{
+    background: url('../images/actors/48/brama_uchylna.png') no-repeat;
+    background-position: -96px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.actor_brama_suwana{
+    background: url('../images/actors/48/brama_suwana.png') no-repeat;
+    background-position: -96px 0;
+    width: 48px;
+    height: 48px;
+}
+
+.gallery .img.sensor_wlacz_1ch {
+    background: url('../images/sensors/48/wlacznik_1ch.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_wlacz_2ch {
+    background: url('../images/sensors/48/wlacznik_2ch.png') no-repeat;
+    background-position: -144px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_wlacz_3ch {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: -336px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_wlacz_regul {
+    background: url('../images/sensors/48/przyc_regulowany.png') no-repeat;
+    background-position: -144px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_czuj_ruchu {
+    background: url('../images/sensors/48/czujnik_ruchu.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_czuj_dymu {
+    background: url('../images/sensors/48/czujnik_dymu.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_czuj_gazu {
+    background: url('../images/sensors/48/czujnik_gazu.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_czuj_temp {
+    background: url('../images/sensors/48/puszka_temp.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_czuj_zalania {
+    background: url('../images/sensors/48/czujnik_zalania.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_alarm{
+    background: url('../images/sensors/48/alarm_centrala.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_alarm_klaw {
+    background: url('../images/sensors/48/alarm_manipulator.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_alarm_czytnik {
+    background: url('../images/sensors/48/czytnik_kart.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.sensor_odbiornik_it {
+    background: url('../images/sensors/48/puszka_it_ir.png') no-repeat;
+    background-position: -48px 0;
+    width: 48px;
+    height: 48px;
+}
+
+.gallery .img.mod_wej3ch_din {
+    background: url('../images/modules/48/mod_wej3ch.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_wyj2ch_din {
+    background: url('../images/modules/48/mod_wyj2ch_230.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_wyj6ch_din {
+    background: url('../images/modules/48/mod_wyj6ch_230.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_wyj6ch_10_din {
+    background: url('../images/modules/48/mod_wyj6ch_10.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_it_ir_din {
+    background: url('../images/modules/48/mod_it_ir.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_blind_din {
+    background: url('../images/modules/48/mod_rolety.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_temp_din {
+    background: url('../images/modules/48/mod_temp.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_dimmer_din {
+    background: url('../images/modules/48/mod_regulacji.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_www_din {
+    background: url('../images/modules/48/mod_www.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_gsm_din {
+    background: url('../images/modules/48/mod_gsm.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_wej8ch_km {
+    background: url('../images/modules/48/puszka_wej8ch.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_wyj_km {
+    background: url('../images/modules/48/puszka_wyj1ch_230.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_wyj2ch_km {
+    background: url('../images/modules/48/puszka_wyj2ch_230.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_wyj_10_km {
+    background: url('../images/modules/48/puszka_wyj1ch_10.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_wyj2ch_10_km {
+    background: url('../images/modules/48/puszka_wyj2ch_10.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_temp_km {
+    background: url('../images/modules/48/puszka_temp.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+.gallery .img.mod_it_ir_km {
+    background: url('../images/modules/48/puszka_it_ir.png') no-repeat;
+    width: 48px;
+    height: 48px;
+}
+
+.group_list li {
+    list-style-type: none;
+}
+
+.group_list li .actions { float: right; }
+
+
+.gallery li .channel {
+    display: block;
+    padding-top: 10px;
+    height: 75px;
+    width: auto;
+}
+
+.gallery li .channel-highlight {
+    background: #555555;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.gallery.config h3 {
+    margin-bottom: 0;
+}
+
+
+/* =Gallery
+----------------------------------------------- */
+ul.items { padding: 0; margin: 0; }
+
+
+.items .btn { font-size: 10px; }
+
+.items li 
+{
+    padding: 3px;
+    margin: 0;
+    background: 0;
+    width: 195px;
+    height: 240px;
+
+    list-style-type: none;    
+    float: left;
+
+
+    position: relative;
+    margin: 13px 17px 10px 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 3px rgba(0,0,0,.20);
+    -moz-box-shadow: 0 0 3px rgba(0,0,0,.20);
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,.20);
+
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    }
+    
+.items li:hover { border-color: #888; }
+
+.items li.hidden .actions { display: none; }
+
+.items.config li {
+    height: 90px;
+} 
+
+.items .img {
+    display: block;
+    float: left;
+    width: 48px;
+    height: 48px;
+    padding-right: 0.3em;
+}
+
+.items h3 {
+    margin-bottom: 4px; 
+    margin-left: 52px;
+}
+.items small   {
+    margin-left: 52px;
+    line-height: 16px;
+    display: block;
+}
+
+.items .actions  {
+    clear: left;
+    margin-top: 0.7em;
+    margin-left: 98px;
+}
+
+.items.config .actions {
+    margin-left: 10px;
+}
+
+.items .img.mod_wej3ch_din {
+    background: url('../images/modules/48/mod_wej3ch.png') no-repeat;
+}
+.items .img.mod_wyj2ch_din {
+    background: url('../images/modules/48/mod_wyj2ch_230.png') no-repeat;
+}
+.items .img.mod_wyj6ch_din {
+    background: url('../images/modules/48/mod_wyj6ch_230.png') no-repeat;
+}
+.items .img.mod_wyj6ch_10_din {
+    background: url('../images/modules/48/mod_wyj6ch_10.png') no-repeat;
+}
+.items .img.mod_it_ir_din {
+    background: url('../images/modules/48/mod_it_ir.png') no-repeat;
+}
+.items .img.mod_blind_din {
+    background: url('../images/modules/48/mod_rolety.png') no-repeat;
+}
+.items .img.mod_temp_din {
+    background: url('../images/modules/48/mod_temp.png') no-repeat;
+}
+.items .img.mod_dimmer_din {
+    background: url('../images/modules/48/mod_regulacji.png') no-repeat;
+}
+.items .img.mod_www_din {
+    background: url('../images/modules/48/mod_www.png') no-repeat;
+}
+.items .img.mod_gsm_din {
+    background: url('../images/modules/48/mod_gsm.png') no-repeat;
+}
+.items .img.mod_wej8ch_km {
+    background: url('../images/modules/48/puszka_wej8ch.png') no-repeat;
+}
+.items .img.mod_wyj_km {
+    background: url('../images/modules/48/puszka_wyj1ch_230.png') no-repeat;
+}
+.items .img.mod_wyj2ch_km {
+    background: url('../images/modules/48/puszka_wyj2ch_230.png') no-repeat;
+}
+.items .img.mod_wyj_10_km {
+    background: url('../images/modules/48/puszka_wyj1ch_10.png') no-repeat;
+}
+.items .img.mod_wyj2ch_10_km {
+    background: url('../images/modules/48/puszka_wyj2ch_10.png') no-repeat;
+}
+.items .img.mod_temp_km {
+    background: url('../images/modules/48/puszka_temp.png') no-repeat;
+}
+.items .img.mod_it_ir_km {
+    background: url('../images/modules/48/puszka_it_ir.png') no-repeat;
+}
+
+.items .connections {
+    margin: 0 0.3em 10px 0;
+    height: 145px;
+}
+.items .connections li 
+{
+    padding: 0;
+    margin: 4px 0 4px 5px;
+    width: 48px;
+    height: 32px;
+    border: 0;
+    padding: 5px;
+
+    background-color: #444444;
+    
+    box-shadow: 0;
+    -moz-box-shadow: 0;
+    -webkit-box-shadow: 0;
+
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+}
+
+.items .connections li div {
+    display: block;
+    width: 32px;
+    height: 32px;
+    float: left;
+}
+.items .connections li small {
+    margin-left: 35px;
+    margin-top : 12px;  
+    line-height: 10px;
+}
+
+.items .connections li div.actor_lamp_suf_1-1{
+    background: url('../images/actors/32/lampa.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_lamp_suf_2-1{
+    background: url('../images/actors/32/lampy.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_lamp_suf_2-2{
+    background: url('../images/actors/32/lampy.png') no-repeat;
+    background-position: -64px 0;
+}
+.items .connections li div.actor_lamp_kin_1-1{
+    background: url('../images/actors/32/kinkiet.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_lamp_kin_2-1{
+    background: url('../images/actors/32/kinkiety.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_lamp_kin_2-2{
+    background: url('../images/actors/32/kinkiety.png') no-repeat;
+    background-position: -64px 0;
+}
+.items .connections li div.actor_lamp_sto_1-1{
+    background: url('../images/actors/32/lampa_stojaca.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_lamp_sto_2-1{
+    background: url('../images/actors/32/lampy_stojace.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_lamp_sto_2-2{
+    background: url('../images/actors/32/lampy_stojace.png') no-repeat;
+    background-position: -64px 0;
+}
+.items .connections li div.actor_lamp_rgb-1{
+    background: url('../images/actors/32/lampa_rgb.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_lamp_r-1{
+    background: url('../images/actors/32/lampa_r.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_lamp_g-1{
+    background: url('../images/actors/32/lampa_g.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_lamp_b-1{
+    background: url('../images/actors/32/lampa_b.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_kontakt_1-1{
+    background: url('../images/actors/32/kontakt.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_kontakt_2-1{
+    background: url('../images/actors/32/kontakty.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_kontakt_2-2{
+    background: url('../images/actors/32/kontakty.png') no-repeat;
+    background-position: -64px 0;
+}
+.items .connections li div.actor_telewizor-1{
+    background: url('../images/actors/32/telewizor.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_video-1{
+    background: url('../images/actors/32/video.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_radio-1{
+    background: url('../images/actors/32/radio.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_sprzet_hifi-1{
+    background: url('../images/actors/32/audiovideo.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_kamera-1{
+    background: url('../images/actors/32/kamera.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_wentylator-1{
+    background: url('../images/actors/32/wentylator.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_klimatyzator-1{
+    background: url('../images/actors/32/klima.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_kaloryfer-1{
+    background: url('../images/actors/32/kaloryfer.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_piec-1{
+    background: url('../images/actors/32/piec.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_zawor-1{
+    background: url('../images/actors/32/zawor.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_pompa-1{
+    background: url('../images/actors/32/pompa.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_markiza-1{
+    background: url('../images/actors/32/markiza.png') no-repeat;
+    background-position: -64px 0;
+}
+.items .connections li div.actor_rolety-1{
+    background: url('../images/actors/32/roleta.png') no-repeat;
+    background-position: -64px 0;
+}
+.items .connections li div.actor_zaluzje-1{
+    background: url('../images/actors/32/zaluzje.png') no-repeat;
+    background-position: -64px 0;
+}
+.items .connections li div.actor_zraszacz-1{
+    background: url('../images/actors/32/zraszacz.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.actor_brama_garazowa-1{
+    background: url('../images/actors/32/brama_garazowa.png') no-repeat;
+    background-position: -64px 0;
+}
+.items .connections li div.actor_brama_skrzydlowa-1{
+    background: url('../images/actors/32/brama_uchylna.png') no-repeat;
+    background-position: -64px 0;
+}
+.items .connections li div.actor_brama_suwana-1{
+    background: url('../images/actors/32/brama_suwana.png') no-repeat;
+    background-position: -64px 0;
+}
+
+.items .connections li div.sensor_wlacz_1ch-1 {
+    background: url('../images/sensors/32/wlacznik_1ch.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.sensor_wlacz_2ch-1 {
+    background: url('../images/sensors/32/wlacznik_2ch.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.sensor_wlacz_2ch-2 {
+    background: url('../images/sensors/32/wlacznik_2ch.png') no-repeat;
+    background-position: -64px 0;
+}
+.items .connections li div.sensor_wlacz_3ch-1 {
+    background: url('../images/sensors/32/wlacznik_3ch.png') no-repeat;
+    background-position: -96px 0;
+}
+.items .connections li div.sensor_wlacz_3ch-2 {
+    background: url('../images/sensors/32/wlacznik_3ch.png') no-repeat;
+    background-position: -64px 0;
+}
+.items .connections li div.sensor_wlacz_3ch-3 {
+    background: url('../images/sensors/32/wlacznik_3ch.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.sensor_wlacz_regul-1 {
+    background: url('../images/sensors/32/przyc_regulowany.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.sensor_czuj_ruchu-1 {
+    background: url('../images/sensors/32/czujnik_ruchu.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.sensor_czuj_dymu-1 {
+    background: url('../images/sensors/32/czujnik_dymu.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.sensor_czuj_gazu-1 {
+    background: url('../images/sensors/32/czujnik_gazu.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.sensor_czuj_temp-1 {
+    background: url('../images/sensors/32/puszka_temp.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.sensor_czuj_zalania-1 {
+    background: url('../images/sensors/32/czujnik_zalania.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.sensor_alarm-1{
+    background: url('../images/sensors/32/alarm_centrala.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.sensor_alarm_klaw-1 {
+    background: url('../images/sensors/32/alarm_manipulator.png') no-repeat;
+}
+.items .connections li div.sensor_alarm_czytnik-1 {
+    background: url('../images/sensors/32/czytnik_kart.png') no-repeat;
+    background-position: -32px 0;
+}
+.items .connections li div.sensor_odbiornik_it-1 {
+    background: url('../images/sensors/32/puszka_it_ir.png') no-repeat;
+    background-position: -32px 0;
+}
+
+/* =Gallery
+----------------------------------------------- */
+ul.mini_gallery { padding: 0; margin: 0; }
+
+.mini_gallery li 
+{
+    padding: 3px;
+    margin: 0;
+    background: 0;
+    width: 195px;
+    height: 74px;
+
+    list-style-type: none;    
+    float: left;
+
+    position: relative;
+    margin: 13px 17px 10px 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 3px rgba(0,0,0,.20);
+    -moz-box-shadow: 0 0 3px rgba(0,0,0,.20);
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,.20);
+
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+    
+.mini_gallery li:hover { border-color: #888; }
+
+.mini_gallery li.hidden .actions { display: none; }
+
+.mini_gallery .img {
+    display: block;
+    float: left;
+    width: 48px;
+    height: 48px;
+}
+
+.mini_gallery h3, .config .channel h3 {
+    margin-bottom: 0;
+    margin-left: 52px;       
+}
+.mini_gallery small, .config small {
+    display: block;
+    margin-left: 52px;
+    line-height:15px;
+}
+
+.mini_gallery .img.actor_lamp_suf_1-1, .config .img.actor_lamp_suf_1-1 {
+    background: url('../images/actors/48/lampa.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_lamp_suf_2-1, .config .img.actor_lamp_suf_2-1{
+    background: url('../images/actors/48/lampy.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_lamp_suf_2-2, .config .img.actor_lamp_suf_2-2{
+    background: url('../images/actors/48/lampy.png') no-repeat;
+    background-position: -96px 0;
+}
+.mini_gallery .img.actor_lamp_kin_1-1, .config .img.actor_lamp_kin_1-1{
+    background: url('../images/actors/48/kinkiet.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_lamp_kin_2-1, .config .img.actor_lamp_kin_2-1{
+    background: url('../images/actors/48/kinkiety.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_lamp_kin_2-2, .config .img.actor_lamp_kin_2-2{
+    background: url('../images/actors/48/kinkiety.png') no-repeat;
+    background-position: -96px 0;
+}
+.mini_gallery .img.actor_lamp_sto_1-1, .config .img.actor_lamp_sto_1-1{
+    background: url('../images/actors/48/lampa_stojaca.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_lamp_sto_2-1, .config .img.actor_lamp_sto_2-1{
+    background: url('../images/actors/48/lampy_stojace.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_lamp_sto_2-2, .config .img.actor_lamp_sto_2-2{
+    background: url('../images/actors/48/lampy_stojace.png') no-repeat;
+    background-position: -96px 0;
+}
+.mini_gallery .img.actor_lamp_rgb-1, .config .img.actor_lamp_rgb-1{
+    background: url('../images/actors/48/lampa_rgb.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_lamp_r-1, .config .img.actor_lamp_r-1{
+    background: url('../images/actors/48/lampa_r.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_lamp_g-1, .config .img.actor_lamp_g-1{
+    background: url('../images/actors/48/lampa_g.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_lamp_b-1, .config .img.actor_lamp_b-1{
+    background: url('../images/actors/48/lampa_b.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_kontakt_1-1, .config .img.actor_kontakt_1-1{
+    background: url('../images/actors/48/kontakt.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_kontakt_2-1, .config .img.actor_kontatk_2-1{
+    background: url('../images/actors/48/kontakty.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_kontakt_2-2, .config .img.actor_kontakt_2-2{
+    background: url('../images/actors/48/kontakty.png') no-repeat;
+    background-position: -96px 0;
+}
+.mini_gallery .img.actor_telewizor-1, .config .img.actor_telewizor-1{
+    background: url('../images/actors/48/telewizor.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_video-1, .config .img.actor_video-1{
+    background: url('../images/actors/48/video.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_radio-1, .config .img.actor_radio-1{
+    background: url('../images/actors/48/radio.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_sprzet_hifi-1, .config .img.actor_hifi-1{
+    background: url('../images/actors/48/audiovideo.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_kamera-1, .config .img.actor_kamera-1{
+    background: url('../images/actors/48/kamera.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_wentylator-1, .config .img.actor_wentylator-1{
+    background: url('../images/actors/48/wentylator.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_klimatyzator-1, .config .img.actor_klimatyzator-1{
+    background: url('../images/actors/48/klima.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_kaloryfer-1, .config .img.actor_kaloryfer-1{
+    background: url('../images/actors/48/kaloryfer.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_piec-1, .config .img.actor_piec-1{
+    background: url('../images/actors/48/piec.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_zawor-1, .config .img.actor_zawor-1{
+    background: url('../images/actors/48/zawor.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_pompa-1, .config .img.actor_pompa-1{
+    background: url('../images/actors/48/pompa.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_markiza-1, .config .img.actor_markiza-1{
+    background: url('../images/actors/48/markiza.png') no-repeat;
+    background-position: -96px 0;
+}
+.mini_gallery .img.actor_rolety-1, .config .img.actor_rolety-1{
+    background: url('../images/actors/48/roleta.png') no-repeat;
+    background-position: -96px 0;
+}
+.mini_gallery .img.actor_zaluzje-1, .config .img.actor_zaluzje-1{
+    background: url('../images/actors/48/zaluzje.png') no-repeat;
+    background-position: -96px 0;
+}
+.mini_gallery .img.actor_zraszacz-1, .config .img.actor_zraszacz-1{
+    background: url('../images/actors/48/zraszacz.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.actor_brama_garazowa-1, .config .img.actor_brama_garazowa-1{
+    background: url('../images/actors/48/brama_garazowa.png') no-repeat;
+    background-position: -96px 0;
+}
+.mini_gallery .img.actor_brama_skrzydlowa-1, .config .img.actor_brama_skrydlowa-1{
+    background: url('../images/actors/48/brama_uchylna.png') no-repeat;
+    background-position: -96px 0;
+}
+.mini_gallery .img.actor_brama_suwana-1, .config .img.actor_brama_suwana-1{
+    background: url('../images/actors/48/brama_suwana.png') no-repeat;
+    background-position: -96px 0;
+}
+
+.mini_gallery .img.sensor_wlacz_1ch-1, .config .img.sensor_wlacz_1ch-1 {
+    background: url('../images/sensors/48/wlacznik_1ch.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.sensor_wlacz_2ch-1, .config .img.sensor_wlacz_2ch-1 {
+    background: url('../images/sensors/48/wlacznik_2ch.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.sensor_wlacz_2ch-2, .config .img.sensor_wlacz_2ch-2 {
+    background: url('../images/sensors/48/wlacznik_2ch.png') no-repeat;
+    background-position: -96px 0;
+}
+.mini_gallery .img.sensor_wlacz_3ch-1, .config .img.sensor_wlacz_3ch-1 {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: -144px 0;
+}
+.mini_gallery .img.sensor_wlacz_3ch-2, .config .img.sensor_wlacz_3ch-2 {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: -96px 0;
+}
+.mini_gallery .img.sensor_wlacz_3ch-3, .config .img.sensor_wlacz_3ch-3 {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.sensor_wlacz_regul-1, .config .img.sensor_wlacz_regul-1 {
+    background: url('../images/sensors/48/przyc_regulowany.png') no-repeat;
+    background-position: -144px 0;
+}
+.mini_gallery .img.sensor_czuj_ruchu-1, .config .img.sensor_czuj_ruchu-1 {
+    background: url('../images/sensors/48/czujnik_ruchu.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.sensor_czuj_dymu-1, .config .img.sensor_czuj_dymu-1 {
+    background: url('../images/sensors/48/czujnik_dymu.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.sensor_czuj_gazu-1, .config .img.sensor_czuj_gazu-1 {
+    background: url('../images/sensors/48/czujnik_gazu.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.sensor_czuj_temp-1, .config .img.sensor_czuj_temp-1 {
+    background: url('../images/sensors/48/puszka_temp.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.sensor_czuj_zalania-1, .config .img.sensor_czuj_zalania-1 {
+    background: url('../images/sensors/48/czujnik_zalania.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.sensor_alarm-1, .config .img.sensor_alarm-1 {
+    background: url('../images/sensors/48/alarm_centrala.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.sensor_alarm_klaw-1, .config .img.sensor_alarm_klaw-1 {
+    background: url('../images/sensors/48/alarm_manipulator.png') no-repeat;
+}
+.mini_gallery .img.sensor_alarm_czytnik-1, .config .img.sensor_alarm_czytnik-1 {
+    background: url('../images/sensors/48/czytnik_kart.png') no-repeat;
+    background-position: -48px 0;
+}
+.mini_gallery .img.sensor_odbiornik_it-1, .config .img.sensor_odbiornik_it-1 {
+    background: url('../images/sensors/48/puszka_it_ir.png') no-repeat;
+    background-position: -48px 0;
+}
+
+
+/* STATUSY */
+.items.status li {
+   height: 200px;
+}
+.items.status .img {
+   padding-right: 0;
+}
+.items.status .dynamic {
+   padding: 10px;
+}
+.items.status .dynamic .btn {
+   font-size: 18px;
+   padding: 15px;
+}
+.items.status .dynamic.small .btn {
+   width: 27px;
+   padding: 10px;
+} 
+.items.status .dynamic p {
+   text-align: center;
+   margin-bottom: 0.7em;
+}
+.items.status  li div.actor_lamp_suf_1.on {
+    background: url('../images/actors/48/lampa.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_lamp_suf_1.off {
+    background: url('../images/actors/48/lampa.png') no-repeat;
+    background-position: 0 0;
+}                         
+.items.status  li div.actor_lamp_suf_2.ch1_off.ch2_off{
+    background: url('../images/actors/48/lampy.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_lamp_suf_2.ch1_on.ch2_off{
+    background: url('../images/actors/48/lampy.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_lamp_suf_2.ch1_off.ch2_on{
+    background: url('../images/actors/48/lampy.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.actor_lamp_suf_2.ch1_on.ch2_on{
+    background: url('../images/actors/48/lampy.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.actor_lamp_kin_1.on{
+    background: url('../images/actors/48/kinkiet.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_lamp_kin_1.off{
+    background: url('../images/actors/48/kinkiet.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_lamp_kin_2.ch1_off.ch2_off{
+    background: url('../images/actors/48/kinkiety.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_lamp_kin_2.ch1_on.ch2_off{
+    background: url('../images/actors/48/kinkiety.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_lamp_kin_2.ch1_off.ch2_on{
+    background: url('../images/actors/48/kinkiety.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.actor_lamp_kin_2.ch1_on.ch2_on{
+    background: url('../images/actors/48/kinkiety.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.actor_lamp_sto_1.on{
+    background: url('../images/actors/48/lampa_stojaca.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_lamp_sto_1.off{
+    background: url('../images/actors/48/lampa_stojaca.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_lamp_sto_2.ch1_off.ch2_off{
+    background: url('../images/actors/48/lampy_stojace.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_lamp_sto_2.ch1_on.ch2_off{
+    background: url('../images/actors/48/lampy_stojace.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_lamp_sto_2.ch1_off.ch2_on{
+    background: url('../images/actors/48/lampy_stojace.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.actor_lamp_sto_2.ch1_on.ch2_on{
+    background: url('../images/actors/48/lampy_stojace.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.actor_lamp_rgb.on{
+    background: url('../images/actors/48/lampa_rgb.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_lamp_rgb.off{
+    background: url('../images/actors/48/lampa_rgb.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_lamp_r.off{
+    background: url('../images/actors/48/lampa_r.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_lamp_r.on{
+    background: url('../images/actors/48/lampa_r.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_lamp_g.off{
+    background: url('../images/actors/48/lampa_g.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_lamp_g.on{
+    background: url('../images/actors/48/lampa_g.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_lamp_b.off{
+    background: url('../images/actors/48/lampa_b.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_lamp_b.on{
+    background: url('../images/actors/48/lampa_b.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_kontakt_1.off{
+    background: url('../images/actors/48/kontakt.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_kontakt_1.on{
+    background: url('../images/actors/48/kontakt.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_kontakt_2.ch1_off.ch2_off{
+    background: url('../images/actors/48/kontakty.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_kontakt_2.ch1_on.ch2_off{
+    background: url('../images/actors/48/kontakty.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_kontakt_2.ch1_off.ch2_on{
+    background: url('../images/actors/48/kontakty.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.actor_kontakt_2.ch1_on.ch2_on{
+    background: url('../images/actors/48/kontakty.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.actor_telewizor.off{
+    background: url('../images/actors/48/telewizor.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_telewizor.on{
+    background: url('../images/actors/48/telewizor.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_video.off{
+    background: url('../images/actors/48/video.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_video.on{
+    background: url('../images/actors/48/video.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_radio.off{
+    background: url('../images/actors/48/radio.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_radio.on{
+    background: url('../images/actors/48/radio.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_sprzet_hifi.off{
+    background: url('../images/actors/48/audiovideo.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_sprzet_hifi.on{
+    background: url('../images/actors/48/audiovideo.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_kamera.off{
+    background: url('../images/actors/48/kamera.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_kamera.on{
+    background: url('../images/actors/48/kamera.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_wentylator.off{
+    background: url('../images/actors/48/wentylator.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_wentylator.on{
+    background: url('../images/actors/48/wentylator.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_klimatyzator.off{
+    background: url('../images/actors/48/klima.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_klimatyzator.on{
+    background: url('../images/actors/48/klima.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_kaloryfer.off{
+    background: url('../images/actors/48/kaloryfer.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_kaloryfer.on{
+    background: url('../images/actors/48/kaloryfer.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_piec.off{
+    background: url('../images/actors/48/piec.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_piec.on{
+    background: url('../images/actors/48/piec.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_zawor.off{
+    background: url('../images/actors/48/zawor.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_zawor.on{
+    background: url('../images/actors/48/zawor.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_pompa.off{
+    background: url('../images/actors/48/pompa.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_pompa.on{
+    background: url('../images/actors/48/pompa.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_markiza.off{
+    background: url('../images/actors/48/markiza.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_markiza.up{
+    background: url('../images/actors/48/markiza.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_markiza.on{
+    background: url('../images/actors/48/markiza.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.actor_markiza.down{
+    background: url('../images/actors/48/markiza.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.actor_rolety.off{
+    background: url('../images/actors/48/roleta.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_rolety.up{
+    background: url('../images/actors/48/roleta.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_rolety.on{
+    background: url('../images/actors/48/roleta.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.actor_rolety.down{
+    background: url('../images/actors/48/roleta.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.actor_zaluzje.off{
+    background: url('../images/actors/48/zaluzje.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_zaluzje.up{
+    background: url('../images/actors/48/zaluzje.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_zaluzje.on{
+    background: url('../images/actors/48/zaluzje.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.actor_zaluzje.down{
+    background: url('../images/actors/48/zaluzje.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.actor_zraszacz.off{
+    background: url('../images/actors/48/zraszacz.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_zraszacz.on{
+    background: url('../images/actors/48/zraszacz.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_brama_garazowa.off{
+    background: url('../images/actors/48/brama_garazowa.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_brama_garazowa.up{
+    background: url('../images/actors/48/brama_garazowa.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_brama_garazowa.on{
+    background: url('../images/actors/48/brama_garazowa.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.actor_brama_garazowa.down{
+    background: url('../images/actors/48/brama_garazowa.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.actor_brama_skrzydlowa.off{
+    background: url('../images/actors/48/brama_uchylna.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_brama_skrzydlowa.up{
+    background: url('../images/actors/48/brama_uchylna.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_brama_skrzydlowa.on{
+    background: url('../images/actors/48/brama_uchylna.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.actor_brama_skrzydlowa.down{
+    background: url('../images/actors/48/brama_uchylna.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.actor_brama_suwana.off{
+    background: url('../images/actors/48/brama_suwana.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.actor_brama_suwana.up{
+    background: url('../images/actors/48/brama_suwana.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.actor_brama_suwana.on{
+    background: url('../images/actors/48/brama_suwana.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.actor_brama_suwana.down{
+    background: url('../images/actors/48/brama_suwana.png') no-repeat;
+    background-position: -144px 0;
+}
+
+.items.status  li div.sensor_wlacz_1ch.off {
+    background: url('../images/sensors/48/wlacznik_1ch.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_wlacz_1ch.on {
+    background: url('../images/sensors/48/wlacznik_1ch.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.sensor_wlacz_2ch.ch1_off.ch2_off {
+    background: url('../images/sensors/48/wlacznik_2ch.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_wlacz_2ch.ch1_on.ch2_off {
+    background: url('../images/sensors/48/wlacznik_2ch.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.sensor_wlacz_2ch.ch1_off.ch2_on {
+    background: url('../images/sensors/48/wlacznik_2ch.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.sensor_wlacz_2ch.ch1_on.ch2_on {
+    background: url('../images/sensors/48/wlacznik_2ch.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.sensor_wlacz_3ch.ch1_off.ch2_off.ch3_off {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_wlacz_3ch.ch1_on.ch2_off.ch3_off {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.sensor_wlacz_3ch.ch1_off.ch2_on.ch3_off {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.sensor_wlacz_3ch.ch1_off.ch2_off.ch3_on {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.sensor_wlacz_3ch.ch1_on.ch2_on.ch3_off {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: -192px 0;
+}
+.items.status  li div.sensor_wlacz_3ch.ch1_on.ch2_off.ch3_on {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: -240px 0;
+}
+.items.status  li div.sensor_wlacz_3ch.ch1_off.ch2_on.ch3_on {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: -288px 0;
+}
+.items.status  li div.sensor_wlacz_3ch.ch1_on.ch2_on.ch3_on {
+    background: url('../images/sensors/48/wlacznik_3ch.png') no-repeat;
+    background-position: -336px 0;
+}
+.items.status  li div.sensor_wlacz_regul.off {
+    background: url('../images/sensors/48/przyc_regulowany.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_wlacz_regul.up {
+    background: url('../images/sensors/48/przyc_regulowany.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.sensor_wlacz_regul.on {
+    background: url('../images/sensors/48/przyc_regulowany.png') no-repeat;
+    background-position: -96px 0;
+}
+.items.status  li div.sensor_wlacz_regul.down {
+    background: url('../images/sensors/48/przyc_regulowany.png') no-repeat;
+    background-position: -144px 0;
+}
+.items.status  li div.sensor_czuj_ruchu.off {
+    background: url('../images/sensors/48/czujnik_ruchu.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_czuj_ruchu.on {
+    background: url('../images/sensors/48/czujnik_ruchu.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.sensor_czuj_dymu.off {
+    background: url('../images/sensors/48/czujnik_dymu.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_czuj_dymu.on {
+    background: url('../images/sensors/48/czujnik_dymu.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.sensor_czuj_gazu.off {
+    background: url('../images/sensors/48/czujnik_gazu.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_czuj_gazu.on {
+    background: url('../images/sensors/48/czujnik_gazu.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.sensor_czuj_temp.off {
+    background: url('../images/sensors/48/puszka_temp.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_czuj_temp.on {
+    background: url('../images/sensors/48/puszka_temp.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.sensor_czuj_zalania.off {
+    background: url('../images/sensors/48/czujnik_zalania.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_czuj_zalania.on {
+    background: url('../images/sensors/48/czujnik_zalania.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.sensor_alarm.off{
+    background: url('../images/sensors/48/alarm_centrala.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_alarm.on{
+    background: url('../images/sensors/48/alarm_centrala.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.sensor_alarm_klaw.off {
+    background: url('../images/sensors/48/alarm_manipulator.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_alarm_klaw.on {
+    background: url('../images/sensors/48/alarm_manipulator.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_alarm_czytnik.off {
+    background: url('../images/sensors/48/czytnik_kart.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_alarm_czytnik.on {
+    background: url('../images/sensors/48/czytnik_kart.png') no-repeat;
+    background-position: -48px 0;
+}
+.items.status  li div.sensor_odbiornik_it.off {
+    background: url('../images/sensors/48/puszka_it_ir.png') no-repeat;
+    background-position: 0 0;
+}
+.items.status  li div.sensor_odbiornik_it.on {
+    background: url('../images/sensors/48/puszka_it_ir.png') no-repeat;
+    background-position: -48px 0;
+}
+
+
+
+/* =Data Table [OVERRIDE]
+----------------------------------------------- */
+.paging_full_numbers span.paginate_button
+, .paging_full_numbers span.paginate_active {
+	padding: 3px 8px;
+}
+
+.paging_full_numbers span.paginate_active {	
+	font-size: 11px;
+	color: #FFF;
+}
+
+.paginate_button
+, .paginate_active { display: inline-block; }
+
+
+table.display thead tr { 
+	background: #EEE;
+	background:-moz-linear-gradient(top, #FFFFFF 0%, #EEEEEE 100%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(100%,#EEEEEE)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top, #FFFFFF 0%,#EEEEEE 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #FFFFFF 0%,#EEEEEE 100%); /* Opera11.10+ */
+	background:-ms-linear-gradient(top, #FFFFFF 0%,#EEEEEE 100%); /* IE10+ */
+	background:linear-gradient(top, #FFFFFF 0%,#EEEEEE 100%); /* W3C */	
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#EEEEEE');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFF', endColorstr='#FFFFF')";
+}
+
+.dataTables_info { width: 38%; }
+.dataTaebles_paginate { width: 60%; }
+.dataTables_info
+, .dataTables_paginate { margin-top: 2em; }
+
+.dataTables_length
+, .dataTables_filter { margin-bottom: 1em; }
+
+
+
+
+
+/* =Steppy [OVERRIDE]
+----------------------------------------------- */
+fieldset.step form { width: 100%; }
+
+fieldset.step { 
+	width: auto;  
+	padding: 25px 15px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+fieldset.step .stepy-buttons { padding: 0 .85em; margin-top: 3em; }
+
+ul.stepy-titles { display: block; margin-bottom: .5em; float: left !important; }
+
+ul.stepy-titles li
+{
+	color: #777;
+	padding: 8px 20px 12px 17px;
+	margin-right: 1em;
+	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+ul.stepy-titles li.current-step
+{	
+	color: #FFF;
+	
+	border-color: #03437C;
+	
+	text-shadow: 1px 1px 2px rgba(0,0,0,.35);
+}
+
+fieldset.step legend { display: none; }
+
+
+
+
+.fc-event-inner {
+	border-radius: 4px;
+}
+
+.fc-event {
+	background: none;
+	border: none;
+}
+
+
+
+/* =Misc
+----------------------------------------------- */
+.avatar { padding: 2px; border: 1px solid #CCC; }
+
+
+
+#tooltip {
+    position: absolute;
+    z-index: 3000;
+    border: 1px solid #111;
+    background-color: #eee;
+    padding: 5px;
+    opacity: 0.85;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;    
+}
+#tooltip h3, #tooltip div { margin: 0; font-size: 12px; }
+
+
+
+
+/* =Footer
+----------------------------------------------- */
+#footer {
+background:-moz-linear-gradient(top, #555 0%, #454545 1%, #454545 100%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-stop (0%, #555), color-stop(1%,#454545), color-stop(100%,#454545)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top, #555 0%, #454545 1%, #454545 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #555 0%, #454545 1%, #454545 100%); /* Opera11.10+ */
+	background:-ms-linear-gradient(top, #555 0%, #454545 1%, #454545 100%); /* IE10+ */
+	background:linear-gradient(top, #555 0%, #454545 1%, #454545 100%); /* W3C */
+	color: #FFF;
+	border-top: 1px solid #000;
+    position: relative;
+}
+
+	#footer a { color: #FFD742; }
+    
+    #footer #copyright { border-top: 0; }
+
+
+
+    
+.ui-slider { position: relative; text-align: left; }
+.ui-slider .ui-slider-handle { position: absolute; z-index: 2; width: 1.2em; height: 1.2em; cursor: default; }
+.ui-slider .ui-slider-range { position: absolute; z-index: 1; font-size: .7em; display: block; border: 0; background-position: 0 0; }
+
+.ui-slider-horizontal { height: .8em; }
+.ui-slider-horizontal .ui-slider-handle { top: -.3em; margin-left: -.6em; }
+.ui-slider-horizontal .ui-slider-range { top: 0; height: 100%; }
+.ui-slider-horizontal .ui-slider-range-min { left: 0; }
+.ui-slider-horizontal .ui-slider-range-max { right: 0; }
+
+.ui-slider-vertical { width: .8em; height: 100px; }
+.ui-slider-vertical .ui-slider-handle { left: -.3em; margin-left: 0; margin-bottom: -.6em; }
+.ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
+.ui-slider-vertical .ui-slider-range-min { bottom: 0; }
+.ui-slider-vertical .ui-slider-range-max { top: 0; }
+
+/* Component containers
+----------------------------------*/
+.ui-widget { font-family: Segoe UI, Arial, sans-serif; font-size: 1.1em; }
+.ui-widget .ui-widget { font-size: 1em; }
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Segoe UI, Arial, sans-serif; font-size: 1em; }
+.ui-widget-content { border: 1px solid #8e846b; background: #feeebd url(images/ui-bg_highlight-soft_100_feeebd_1x100.png) 50% top repeat-x; color: #383838; }
+.ui-widget-content a { color: #383838; }
+.ui-widget-header { border: 1px solid #494437; background: #817865 url(images/ui-bg_gloss-wave_45_817865_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
+.ui-widget-header a { color: #ffffff; }
+
+/* Interaction states
+----------------------------------*/
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #d19405; background: #fece2f url(images/ui-bg_gloss-wave_60_fece2f_500x100.png) 50% 50% repeat-x; font-weight: bold; color: #4c3000; }
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #4c3000; text-decoration: none; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #a45b13; background: #ffdd57 url(images/ui-bg_gloss-wave_70_ffdd57_500x100.png) 50% 50% repeat-x; font-weight: bold; color: #381f00; }
+.ui-state-hover a, .ui-state-hover a:hover { color: #381f00; text-decoration: none; }
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #655e4e; background: #ffffff url(images/ui-bg_inset-soft_30_ffffff_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #0074c7; }
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #0074c7; text-decoration: none; }
+.ui-widget :active { outline: none; }
+
+/* Interaction Cues
+----------------------------------*/
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #eeb420; background: #fff9e5 url(images/ui-bg_gloss-wave_90_fff9e5_500x100.png) 50% top repeat-x; color: #1f1f1f; }
+.ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #1f1f1f; }
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #ffb73d; background: #d34d17 url(images/ui-bg_diagonals-medium_20_d34d17_40x40.png) 50% 50% repeat; color: #ffffff; }
+.ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #ffffff; }
+.ui-state-error-text, .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text { color: #ffffff; }
+.ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary { font-weight: bold; }
+.ui-priority-secondary, .ui-widget-content .ui-priority-secondary,  .ui-widget-header .ui-priority-secondary { opacity: .7; filter:Alpha(Opacity=70); font-weight: normal; }
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }
+
+/* Corner radius */
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl { -moz-border-radius-topleft: 8px; -webkit-border-top-left-radius: 8px; -khtml-border-top-left-radius: 8px; border-top-left-radius: 8px; }
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr { -moz-border-radius-topright: 8px; -webkit-border-top-right-radius: 8px; -khtml-border-top-right-radius: 8px; border-top-right-radius: 8px; }
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl { -moz-border-radius-bottomleft: 8px; -webkit-border-bottom-left-radius: 8px; -khtml-border-bottom-left-radius: 8px; border-bottom-left-radius: 8px; }
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br { -moz-border-radius-bottomright: 8px; -webkit-border-bottom-right-radius: 8px; -khtml-border-bottom-right-radius: 8px; border-bottom-right-radius: 8px; }
+
+
+#parter_phase, #pietro_phase {
+   position: relative;
+}
+
+a.plan_icon {
+   position: absolute;
+   display: block;
+   width: 32px;
+   height: 32px;
+}
+a.plan_icon.actor_lamp_suf_1.on {
+    background: url('../images/actors/32/lampa.png') no-repeat;
+    background-position: -32px 0;
+}
+a.plan_icon.actor_lamp_suf_1.off {
+    background: url('../images/actors/32/lampa.png') no-repeat;
+    background-position: 0 0;
+}                         
+a.plan_icon.actor_lamp_suf_2.ch1_off.ch2_off{
+    background: url('../images/actors/32/lampy.png') no-repeat;
+    background-position: 0 0;
+}
+a.plan_icon.actor_lamp_suf_2.ch1_on.ch2_off{
+    background: url('../images/actors/32/lampy.png') no-repeat;
+    background-position: -32px 0;
+}
+a.plan_icon.actor_lamp_suf_2.ch1_off.ch2_on{
+    background: url('../images/actors/32/lampy.png') no-repeat;
+    background-position: -64px 0;
+}
+a.plan_icon.actor_lamp_suf_2.ch1_on.ch2_on{
+    background: url('../images/actors/32/lampy.png') no-repeat;
+    background-position: -96px 0;
+}
+a.plan_icon.actor_lamp_kin_1.on{
+    background: url('../images/actors/32/kinkiet.png') no-repeat;
+    background-position: -32px 0;
+}
+a.plan_icon.actor_lamp_kin_1.off{
+    background: url('../images/actors/32/kinkiet.png') no-repeat;
+    background-position: 0 0;
+}
+a.plan_icon.actor_lamp_kin_2.ch1_off.ch2_off{
+    background: url('../images/actors/32/kinkiety.png') no-repeat;
+    background-position: 0 0;
+}
+a.plan_icon.actor_lamp_kin_2.ch1_on.ch2_off{
+    background: url('../images/actors/32/kinkiety.png') no-repeat;
+    background-position: -32px 0;
+}
+a.plan_icon.actor_lamp_kin_2.ch1_off.ch2_on{
+    background: url('../images/actors/32/kinkiety.png') no-repeat;
+    background-position: -64px 0;
+}
+a.plan_icon.actor_lamp_kin_2.ch1_on.ch2_on{
+    background: url('../images/actors/32/kinkiety.png') no-repeat;
+    background-position: -96px 0;
+}
+a.plan_icon.actor_lamp_sto_1.on{
+    background: url('../images/actors/32/lampa_stojaca.png') no-repeat;
+    background-position: 0 0;
+}
+a.plan_icon.actor_lamp_sto_1.off{
+    background: url('../images/actors/32/lampa_stojaca.png') no-repeat;
+    background-position: -32px 0;
+}
+a.plan_icon.actor_lamp_sto_2.ch1_off.ch2_off{
+    background: url('../images/actors/32/lampy_stojace.png') no-repeat;
+    background-position: 0 0;
+}
+a.plan_icon.actor_lamp_sto_2.ch1_on.ch2_off{
+    background: url('../images/actors/32/lampy_stojace.png') no-repeat;
+    background-position: -32px 0;
+}
+a.plan_icon.actor_lamp_sto_2.ch1_off.ch2_on{
+    background: url('../images/actors/32/lampy_stojace.png') no-repeat;
+    background-position: -64px 0;
+}
+a.plan_icon.actor_lamp_sto_2.ch1_on.ch2_on{
+    background: url('../images/actors/32/lampy_stojace.png') no-repeat;
+    background-position: -96px 0;
+}
+a.plan_icon.actor_kaloryfer.off{
+    background: url('../images/actors/32/kaloryfer.png') no-repeat;
+    background-position: 0 0;
+}
+a.plan_icon.actor_kaloryfer.on{
+    background: url('../images/actors/32/kaloryfer.png') no-repeat;
+    background-position: -32px 0;
+}
+a.plan_icon.actor_kontakt_1.off{
+    background: url('../images/actors/32/kontakt.png') no-repeat;
+    background-position: 0 0;
+}
+a.plan_icon.actor_kontakt_1.on{
+    background: url('../images/actors/32/kontakt.png') no-repeat;
+    background-position: -32px 0;
+}
+a.plan_icon.actor_kontakt_2.ch1_off.ch2_off{
+    background: url('../images/actors/32/kontakty.png') no-repeat;
+    background-position: 0 0;
+}
+a.plan_icon.actor_kontakt_2.ch1_on.ch2_off{
+    background: url('../images/actors/32/kontakty.png') no-repeat;
+    background-position: -32px 0;
+}
+a.plan_icon.actor_kontakt_2.ch1_off.ch2_on{
+    background: url('../images/actors/32/kontakty.png') no-repeat;
+    background-position: -64px 0;
+}
+a.plan_icon.actor_kontakt_2.ch1_on.ch2_on{
+    background: url('../images/actors/32/kontakty.png') no-repeat;
+    background-position: -96px 0;
+}
